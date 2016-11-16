@@ -1,9 +1,9 @@
 public class BinarySearchTree {
 
   private class node {
-		String name = new String();
+    String name = new String();
     int age;
-		node parent;
+    node parent;
     node left;
     node right;
 
@@ -17,9 +17,8 @@ public class BinarySearchTree {
     }
 
     public node() {
-
+    	}
     }
-	}
 
   //Required variables for a BinarySearchTree
   private node root;
