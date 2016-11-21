@@ -59,6 +59,7 @@ public class handle {
       System.out.println("Please enter a name to search for: ")
       Scanner nameScan = new Scanner(System.in);
       String name = nameScan.next();
+
     } else if (funcChoice == 2) {
 
       System.out.println("You chose MostPopularName");
