@@ -11,6 +11,7 @@ public class BinarySearchTree {
 
   //Required variables for a BinarySearchTree
   public node root;
+  public int size;
 
   //Creation of BinarySearchTree
   public BinarySearchTree() {
@@ -24,7 +25,7 @@ public class BinarySearchTree {
     node x = tree.root;
     while (x != null) {
       y = x;
-      if (z.age < x.age) {
+      if (z.occur < x.occur) {
         x = x.left;
       } else {
         x = x.right;
@@ -33,11 +34,17 @@ public class BinarySearchTree {
     z.parent = y;
     if (y == null) {
       tree.root = z;
-    } else if (z.age < y.age) {
+    } else if (z.occur < y.occur) {
       y.left = z;
     } else {
       y.right = z;
     }
+    tree.size++;
+  }
+
+  //Lets us see the size of the BST
+  public static int bstSize(BinarySearchTree tree) {
+    return tree.size;
   }
 
   //Can search through the entire tree and print out each node.
@@ -45,7 +52,7 @@ public class BinarySearchTree {
 
     if (treeRoot != null) {
       inorderTreeWalk(treeRoot.left);
-      System.out.println(treeRoot.name + ", " + treeRoot.age + ", " + treeRoot.gender);
+      System.out.println(treeRoot.name + ", " + treeRoot.occur + ", " + treeRoot.gender);
       inorderTreeWalk(treeRoot.right);
     }
   }
@@ -68,13 +75,13 @@ public class BinarySearchTree {
     return x;
   }
 
-  //Takes in a tree's root, and a key and returns the node with that key (age).
+  //Takes in a tree's root, and a key and returns the node with that key (occur).
   public static node treeSearch(node x, int key) {
 
-    if ((x == null) || (key == x.age)) {
+    if ((x == null) || (key == x.occur)) {
       return x;
     }
-    if (key < x.age) {
+    if (key < x.occur) {
       return treeSearch(x.left, key);
     } else {
       return treeSearch(x.right, key);
@@ -131,7 +138,7 @@ public class BinarySearchTree {
   }
 
   public static void MostPopularName(BinarySearchTree tree) {
-    
+
   }
 
 } //End BinarySearchTree
