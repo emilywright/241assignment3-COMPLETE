@@ -24,6 +24,9 @@ Function descriptions:
 
 import java.util.Scanner;
 import java.io.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 
 public class handle {
 
@@ -35,6 +38,7 @@ public class handle {
     BinarySearchTree userTree = new BinarySearchTree();
     int maleCount = 0;
     int femaleCount = 0;
+
     while (fileInfo.hasNext()) {
 
       String currLine = fileInfo.nextLine();
@@ -56,7 +60,7 @@ public class handle {
     if (funcChoice == 1) {
 
       System.out.println("You chose SearchName");
-      System.out.println("Please enter a name to search for: ")
+      System.out.println("Please enter a name to search for: ");
       Scanner nameScan = new Scanner(System.in);
       String name = nameScan.next();
 
@@ -82,7 +86,7 @@ public class handle {
     System.out.println("You chose: HashMap");
     System.out.println("Loading the data structure, due to large file size this may take a second. There will be a message indicating when complete"); // Emily please make sure to add this after it's done loading.
 
-    HashMap<String, node> userMap = new HashMap<String, node>;
+    HashMap<String, node> userMap = new HashMap<>();
     int maleCount = 0;
     int femaleCount = 0;
     while (fileInfo.hasNext()) {
@@ -121,26 +125,29 @@ public class handle {
     }
   }
 
-  //Emily all the code for the ArrayList goes here
+  //Code for the ArrayList
   public static void handleArrayList(Scanner fileInfo) {
 
     System.out.println("You chose: ArrayList");
     System.out.println("Loading the data structure, due to large file size this may take a second. There will be a message indicating when complete"); // Emily please make sure to add this after it's done loading.
 
-    ArrayList<node> userArray = new ArrayList<node>;
+    ArrayList<node> userArray = new ArrayList<>();
     int maleCount = 0;
     int femaleCount = 0;
+    int rank = 0;
     while (fileInfo.hasNext()) {
 
       String currLine = fileInfo.nextLine();
       String[] currLineSplit = currLine.split("\\,");
       if (currLineSplit[1].charAt(0) == 'M' || currLineSplit[1].charAt(0) == 'm') {
         maleCount += 1;
+        rank = maleCount;
       } else {
         femaleCount += 1;
+        rank = femaleCount;
       }
 
-      node currNode = new node(currLineSplit[0], Integer.parseInt(currLineSplit[2]), currLineSplit[1].charAt(0));
+      node currNode = new node(currLineSplit[0], Integer.parseInt(currLineSplit[2]), currLineSplit[1].charAt(0), rank);
       userArray.add(currNode);
     }
 
@@ -151,6 +158,11 @@ public class handle {
     if (funcChoice == 1) {
 
       System.out.println("You chose SearchName");
+      System.out.println("Please enter a name to search for: ");
+      Scanner nameScan = new Scanner(System.in);
+      String name = nameScan.next();
+      ArrayListFile.SearchName(name, userArray);
+
     } else if (funcChoice == 2) {
 
       System.out.println("You chose MostPopularName");

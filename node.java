@@ -2,6 +2,7 @@ public class node {
   String name = new String();
   int occur;
   char gender;
+  int rank;
   node parent;
   node left;
   node right;
@@ -21,6 +22,13 @@ public class node {
     this.name = name;
     this.occur = occur;
     this.gender = gender;
+  }
+
+  public node (String name, int occur, char gender, int rank) {
+    this.name = name;
+    this.occur = occur;
+    this.gender = gender;
+    this.rank = rank;
   }
 
   //This creates a node for the HashMap
