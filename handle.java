@@ -166,6 +166,8 @@ public class handle {
     } else if (funcChoice == 2) {
 
       System.out.println("You chose MostPopularName");
+      ArrayListFile.MostPopularName(userArray, femaleCount, maleCount);
+
     } else if (funcChoice == 3) {
 
       System.out.println("You chose UniqueName");
