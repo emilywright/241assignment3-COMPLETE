@@ -171,6 +171,8 @@ public class handle {
     } else if (funcChoice == 3) {
 
       System.out.println("You chose UniqueName");
+      ArrayListFile.UniqueName(userArray, femaleCount, maleCount);
+
     } else if (funcChoice == 4) {
 
       System.out.println("You chose DisplayName");

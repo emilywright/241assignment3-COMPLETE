@@ -54,7 +54,7 @@ public class ArrayListFile {
       Iterator<node> arrayIterator = userArray.iterator();
       int j = 1;
       int l = 1;
-      int frequency = 0;
+      Double frequency = 0.0;
 
       // Initial Titles
       displayPopNames[0][0] = "Female Name";
@@ -73,7 +73,7 @@ public class ArrayListFile {
           displayPopNames[j][0] = currNode.name;
           displayPopNames[j][1] = Integer.toString(currNode.occur);
           frequency = currNode.occur / femaleCount;
-          displayPopNames[j][2] = Integer.toString(frequency);
+          displayPopNames[j][2] = Integer.toString(frequency) + "%";
           j++;
         }
 
@@ -82,7 +82,7 @@ public class ArrayListFile {
           displayPopNames[l][3] = currNode.name;
           displayPopNames[l][4] = Integer.toString(currNode.occur);
           frequency = currNode.occur / femaleCount;
-          displayPopNames[l][5] = Integer.toString(frequency);
+          displayPopNames[l][5] = Integer.toString(frequency) + "%";
           l++;
         }
 
@@ -102,8 +102,42 @@ public class ArrayListFile {
 
    */
 
-  public static void UniqueName() {
+  public static void UniqueName(ArrayList<node> userArray, int femaleCount, int maleCount) {
+    String[][] displayUniqueName = new String[6][3];
+    Iterator<node> arrayIterator = userArray.iterator();
+    ArrayList<node> femaleNames = new ArrayList<>();
+    ArrayList<node> maleNames = new ArrayList<>();
+    int totalBabies = femaleCount + maleCount;
+    int frequency = 0;
+    int precentage = 0;
+    int i = 1;
+    // Initial Titles
+    displayPopNames[0][0] = "Name";
+    displayPopNames[0][1] = "Frequency";
+    displayPopNames[0][2] = "%  ";
+    // Create two arraylists for male and female containing nodes
+    while (arrayIterator.hasNext()) {
+      // Grab the node
+      node currNode = arrayIterator.next();
+      if (Character.toLowerCase(currNode.gender) == 'm'){
+        maleNames.add(currNode);
+      } else {
+        femaleNames.add(currNode);
+      }
+    }
 
+    Iterator<node> femaleIterator = userArray.iterator();
+    Iterator<node> maleIterator = userArray.iterator();
+    while (femaleIterator.hasNext()) {
+      while (maleIterator.hasNext()) {
+        node femaleNode = femaleIterator.next();
+        node maleNode = maleIterator.next();
+        int babyNameTotal = femaleNode.occur + maleNode.occur;
+        if ((femaleIterator.name.equals(maleIterator.name)) && (babyNameTotal > 5)){
+
+        }
+      }
+    }
   }
 
   /*
