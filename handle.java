@@ -76,12 +76,30 @@ public class handle {
 
   }
 
-  //Emily put all the code for your HashMap here.
+  // Code for HashMap here.
   public static void handleHashMap(Scanner fileInfo) {
 
     System.out.println("You chose: HashMap");
     System.out.println("Loading the data structure, due to large file size this may take a second. There will be a message indicating when complete"); // Emily please make sure to add this after it's done loading.
-    System.out.println("Emily this is where you load the HashMap with necessary info");
+
+    HashMap<String, node> userMap = new HashMap<String, node>;
+    int maleCount = 0;
+    int femaleCount = 0;
+    while (fileInfo.hasNext()) {
+
+      String currLine = fileInfo.nextLine();
+      String[] currLineSplit = currLine.split("\\,");
+      if (currLineSplit[1].charAt(0) == 'M' || currLineSplit[1].charAt(0) == 'm') {
+        maleCount += 1;
+      } else {
+        femaleCount += 1;
+      }
+
+      node currNode = new node(Integer.parseInt(currLineSplit[2]), currLineSplit[1].charAt(0));
+      userMap.put(currLineSplit[0], currNode);
+    }
+
+    System.out.println("Load complete!\n");
     System.out.println("\nWhich function did you want to use? 1: SearchName, 2: MostPopularName, 3: UniqueName, 4: DisplayName");
     Scanner options = new Scanner(System.in);
     int funcChoice = options.nextInt();
@@ -108,7 +126,25 @@ public class handle {
 
     System.out.println("You chose: ArrayList");
     System.out.println("Loading the data structure, due to large file size this may take a second. There will be a message indicating when complete"); // Emily please make sure to add this after it's done loading.
-    System.out.println("Emily this is where you load the ArrayList with necessary info");
+
+    ArrayList<node> userArray = new ArrayList<node>;
+    int maleCount = 0;
+    int femaleCount = 0;
+    while (fileInfo.hasNext()) {
+
+      String currLine = fileInfo.nextLine();
+      String[] currLineSplit = currLine.split("\\,");
+      if (currLineSplit[1].charAt(0) == 'M' || currLineSplit[1].charAt(0) == 'm') {
+        maleCount += 1;
+      } else {
+        femaleCount += 1;
+      }
+
+      node currNode = new node(currLineSplit[0], Integer.parseInt(currLineSplit[2]), currLineSplit[1].charAt(0));
+      userArray.add(currNode);
+    }
+
+
     System.out.println("\nWhich function did you want to use? 1: SearchName, 2: MostPopularName, 3: UniqueName, 4: DisplayName");
     Scanner options = new Scanner(System.in);
     int funcChoice = options.nextInt();

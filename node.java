@@ -23,6 +23,12 @@ public class node {
     this.gender = gender;
   }
 
+  //This creates a node for the HashMap
+  public node (int occur, char gender) {
+    this.occur = occur;
+    this.gender = gender;
+  }
+
   //This creates an entirely blank node.
   public node() {
     }
