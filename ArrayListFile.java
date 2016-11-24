@@ -54,7 +54,7 @@ public class ArrayListFile {
       Iterator<node> arrayIterator = userArray.iterator();
       int j = 1;
       int l = 1;
-      Double frequency = 0.0;
+      int frequency = 0;
 
       // Initial Titles
       displayPopNames[0][0] = "Female Name";
@@ -73,7 +73,7 @@ public class ArrayListFile {
           displayPopNames[j][0] = currNode.name;
           displayPopNames[j][1] = Integer.toString(currNode.occur);
           frequency = currNode.occur / femaleCount;
-          displayPopNames[j][2] = Integer.toString(frequency) + "%";
+          displayPopNames[j][2] = Double.toString(frequency) + "%";
           j++;
         }
 
@@ -82,7 +82,7 @@ public class ArrayListFile {
           displayPopNames[l][3] = currNode.name;
           displayPopNames[l][4] = Integer.toString(currNode.occur);
           frequency = currNode.occur / femaleCount;
-          displayPopNames[l][5] = Integer.toString(frequency) + "%";
+          displayPopNames[l][5] = Double.toString(frequency) + "%";
           l++;
         }
 
@@ -90,7 +90,6 @@ public class ArrayListFile {
       }
 
       // Print the double array with Popular name info
-      //System.out.println(Arrays.deepToString(displayPopNames));
      for (String[] row : displayPopNames) {
         System.out.println(Arrays.toString(row));
      }
@@ -112,9 +111,9 @@ public class ArrayListFile {
     int precentage = 0;
     int i = 1;
     // Initial Titles
-    displayPopNames[0][0] = "Name";
-    displayPopNames[0][1] = "Frequency";
-    displayPopNames[0][2] = "%  ";
+    displayUniqueName[0][0] = "Name";
+    displayUniqueName[0][1] = "Frequency";
+    displayUniqueName[0][2] = "%  ";
     // Create two arraylists for male and female containing nodes
     while (arrayIterator.hasNext()) {
       // Grab the node
@@ -126,17 +125,28 @@ public class ArrayListFile {
       }
     }
 
+    // Iterate through the male and female list
     Iterator<node> femaleIterator = userArray.iterator();
     Iterator<node> maleIterator = userArray.iterator();
     while (femaleIterator.hasNext()) {
       while (maleIterator.hasNext()) {
+        // Create nodes for male and female
         node femaleNode = femaleIterator.next();
         node maleNode = maleIterator.next();
-        int babyNameTotal = femaleNode.occur + maleNode.occur;
-        if ((femaleIterator.name.equals(maleIterator.name)) && (babyNameTotal > 5)){
-
+        // Find the frequency of the male and female together
+        frequency = femaleNode.occur + maleNode.occur;
+        // Make sure the two names are the same, the frequency is greater than 5, and for only 5 names
+        if ((femaleNode.name.equals(maleNode.name)) && (frequency >= 5) && (i <= 5)){
+          displayUniqueName[i][0] = femaleNode.name;
+          displayUniqueName[i][1] = Integer.toString(frequency);
+          displayUniqueName[i][2] = Integer.toString(frequency / totalBabies) + "%";
+          i++;
         }
       }
+    }
+
+    for (String[] row : displayUniqueName) {
+       System.out.println(Arrays.toString(row));
     }
   }
 
@@ -147,8 +157,18 @@ public class ArrayListFile {
 
    */
 
-  public static void DisplayName() {
+  public static void DisplayName(ArrayList<node> userArray) {
 
+    // Make arraylist with names
+    ArrayList<String> babyNames = new ArrayList<>();
+    Iterator<node> namesIterator = userArray.iterator();
+    // Create arraylist with names
+    while (arrayIterator.hasNext()) {
+      node currNode = arrayIterator.next();
+      babyNames.add(currNode.name);
+    }
+
+    Arrays.sort(babyNames.toArray());
   }
 
 }

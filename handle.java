@@ -179,6 +179,8 @@ public class handle {
     } else {
 
       System.out.println("Please choose a valid option.");
+      ArrayListFile.DisplayName(userArray);
+
     }
   }
 
