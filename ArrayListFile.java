@@ -163,12 +163,14 @@ public class ArrayListFile {
     ArrayList<String> babyNames = new ArrayList<>();
     Iterator<node> namesIterator = userArray.iterator();
     // Create arraylist with names
-    while (arrayIterator.hasNext()) {
-      node currNode = arrayIterator.next();
+    while (namesIterator.hasNext()) {
+      node currNode = namesIterator.next();
       babyNames.add(currNode.name);
     }
-
-    Arrays.sort(babyNames.toArray());
+    System.out.println(babyNames);
+    String[] sortedNames = babyNames.toArray(new String[babyNames.size()]);
+    Arrays.sort(sortedNames);
+    System.out.println(sortedNames.toString());
   }
 
 }
