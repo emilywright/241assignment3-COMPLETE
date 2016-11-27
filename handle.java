@@ -176,10 +176,11 @@ public class handle {
     } else if (funcChoice == 4) {
 
       System.out.println("You chose DisplayName");
+      ArrayListFile.DisplayName(userArray, femaleCount, maleCount);
+
     } else {
 
       System.out.println("Please choose a valid option.");
-      ArrayListFile.DisplayName(userArray);
 
     }
   }

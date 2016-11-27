@@ -126,8 +126,8 @@ public class ArrayListFile {
     }
 
     // Iterate through the male and female list
-    Iterator<node> femaleIterator = userArray.iterator();
-    Iterator<node> maleIterator = userArray.iterator();
+    Iterator<node> femaleIterator = femaleNames.iterator();
+    Iterator<node> maleIterator = maleNames.iterator();
     while (femaleIterator.hasNext()) {
       while (maleIterator.hasNext()) {
         // Create nodes for male and female
@@ -137,9 +137,10 @@ public class ArrayListFile {
         frequency = femaleNode.occur + maleNode.occur;
         // Make sure the two names are the same, the frequency is greater than 5, and for only 5 names
         if ((femaleNode.name.equals(maleNode.name)) && (frequency >= 5) && (i <= 5)){
+          System.out.println("female " + femaleNode.occur + " male " + maleNode.occur);
           displayUniqueName[i][0] = femaleNode.name;
           displayUniqueName[i][1] = Integer.toString(frequency);
-          displayUniqueName[i][2] = Integer.toString(frequency / totalBabies) + "%";
+          displayUniqueName[i][2] = String.format("%.2f", ((float)frequency / (float)totalBabies));
           i++;
         }
       }
@@ -157,20 +158,41 @@ public class ArrayListFile {
 
    */
 
-  public static void DisplayName(ArrayList<node> userArray) {
+  public static void DisplayName(ArrayList<node> userArray, int femaleCount, int maleCount) {
 
     // Make arraylist with names
     ArrayList<String> babyNames = new ArrayList<>();
     Iterator<node> namesIterator = userArray.iterator();
+    int totalBabies = femaleCount + maleCount;
+    float precentage = 0;
+
     // Create arraylist with names
     while (namesIterator.hasNext()) {
       node currNode = namesIterator.next();
       babyNames.add(currNode.name);
     }
-    System.out.println(babyNames);
+
     String[] sortedNames = babyNames.toArray(new String[babyNames.size()]);
     Arrays.sort(sortedNames);
-    System.out.println(sortedNames.toString());
+    //System.out.println(Arrays.toString(sortedNames));
+
+    Iterator<node> nIterator = userArray.iterator();
+    for (String name : sortedNames) {
+        int count = 0;
+        System.out.print("Name: " + name  + ", ");
+        // Iterate through all of the nodes until finds count
+        while (nIterator.hasNext()) {
+          node cNode = nIterator.next();
+          if(name.equals((String)cNode.name)){
+            count = count + cNode.occur;
+          }
+        }
+        nIterator = userArray.iterator();
+        precentage = (float)count / (float)totalBabies;
+        Double p = precentage * 100.00;
+        System.out.print("Count: " + count + ", ");
+        System.out.printf("Precentage: %.2f \n", p);
+    }
   }
 
 }
