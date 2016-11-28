@@ -80,27 +80,42 @@ public class handle {
 
   }
 
+
+//--------------------------------------------------------------------------------------------------------------------------------------
   // Code for HashMap here.
   public static void handleHashMap(Scanner fileInfo) {
 
     System.out.println("You chose: HashMap");
     System.out.println("Loading the data structure, due to large file size this may take a second. There will be a message indicating when complete"); // Emily please make sure to add this after it's done loading.
 
-    HashMap<String, node> userMap = new HashMap<>();
+    HashMap<String, node> userFemaleMap = new HashMap<>();
+    HashMap<String, node> userMaleMap = new HashMap<>();
+    int femaleTotal = 0;
+    int maleTotal = 0;
     int maleCount = 0;
     int femaleCount = 0;
+    int rank = 0;
+    int totalBabies = 0;
+
     while (fileInfo.hasNext()) {
 
       String currLine = fileInfo.nextLine();
       String[] currLineSplit = currLine.split("\\,");
       if (currLineSplit[1].charAt(0) == 'M' || currLineSplit[1].charAt(0) == 'm') {
+        rank = maleCount;
+        maleTotal = maleTotal + Integer.parseInt(currLineSplit[2]);
+        totalBabies = totalBabies + Integer.parseInt(currLineSplit[2]);
         maleCount += 1;
+        node currNode = new node(Integer.parseInt(currLineSplit[2]), currLineSplit[1].charAt(0), rank);
+        userMaleMap.put(currLineSplit[0], currNode);
       } else {
         femaleCount += 1;
+        rank = femaleCount;
+        femaleTotal = femaleTotal + Integer.parseInt(currLineSplit[2]);
+        totalBabies = totalBabies + Integer.parseInt(currLineSplit[2]);
+        node currNode = new node(Integer.parseInt(currLineSplit[2]), currLineSplit[1].charAt(0), rank);
+        userFemaleMap.put(currLineSplit[0], currNode);
       }
-
-      node currNode = new node(Integer.parseInt(currLineSplit[2]), currLineSplit[1].charAt(0));
-      userMap.put(currLineSplit[0], currNode);
     }
 
     System.out.println("Load complete!\n");
@@ -110,21 +125,34 @@ public class handle {
     if (funcChoice == 1) {
 
       System.out.println("You chose SearchName");
+      System.out.println("Please enter a name to search for: ");
+      Scanner nameScan = new Scanner(System.in);
+      String name = nameScan.next();
+      HashMapFile.SearchName(name, userMaleMap, userFemaleMap);
+
     } else if (funcChoice == 2) {
 
       System.out.println("You chose MostPopularName");
+      ArrayListFile.MostPopularName(userMaleMap, userFemaleMap, maleTotal, femaleTotal);
+
     } else if (funcChoice == 3) {
 
       System.out.println("You chose UniqueName");
+      ArrayListFile.UniqueName(userMaleMap, userFemaleMap, totalBabies);
+
     } else if (funcChoice == 4) {
 
       System.out.println("You chose DisplayName");
+      ArrayListFile.DisplayName(userMaleMap, userFemaleMap, totalBabies);
+
     } else {
 
       System.out.println("Please choose a valid option.");
     }
   }
 
+
+//--------------------------------------------------------------------------------------------------------------------------------------
   //Code for the ArrayList
   public static void handleArrayList(Scanner fileInfo) {
 
@@ -138,6 +166,7 @@ public class handle {
     int femaleCount = 0;
     int rank = 0;
     int totalBabies = 0;
+
     while (fileInfo.hasNext()) {
 
       String currLine = fileInfo.nextLine();
