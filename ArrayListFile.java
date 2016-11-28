@@ -48,13 +48,13 @@ public class ArrayListFile {
 
    */
 
-  public static void MostPopularName(ArrayList<node> userArray, int femaleCount, int maleCount) {
+  public static void MostPopularName(ArrayList<node> userArray, int maleTotal, int femaleTotal) {
 
       String[][] displayPopNames = new String[11][6];
       Iterator<node> arrayIterator = userArray.iterator();
       int j = 1;
       int l = 1;
-      int frequency = 0;
+      //float frequency = 0;
 
       // Initial Titles
       displayPopNames[0][0] = "Female Name";
@@ -72,8 +72,7 @@ public class ArrayListFile {
         if (j <= 10) {
           displayPopNames[j][0] = currNode.name;
           displayPopNames[j][1] = Integer.toString(currNode.occur);
-          frequency = currNode.occur / femaleCount;
-          displayPopNames[j][2] = Double.toString(frequency) + "%";
+          displayPopNames[j][2] = String.format("%.2f", ((float)currNode.occur / (float)femaleTotal * 100));
           j++;
         }
 
@@ -81,8 +80,7 @@ public class ArrayListFile {
         if ((Character.toLowerCase(currNode.gender) == 'm')  && (l <= 10)){
           displayPopNames[l][3] = currNode.name;
           displayPopNames[l][4] = Integer.toString(currNode.occur);
-          frequency = currNode.occur / femaleCount;
-          displayPopNames[l][5] = Double.toString(frequency) + "%";
+          displayPopNames[l][5] = String.format("%.2f", ((float)currNode.occur / (float)maleTotal * 100));
           l++;
         }
 
@@ -101,12 +99,11 @@ public class ArrayListFile {
 
    */
 
-  public static void UniqueName(ArrayList<node> userArray, int femaleCount, int maleCount) {
+  public static void UniqueName(ArrayList<node> userArray, int totalBabies) {
     String[][] displayUniqueName = new String[6][3];
     Iterator<node> arrayIterator = userArray.iterator();
     ArrayList<node> femaleNames = new ArrayList<>();
     ArrayList<node> maleNames = new ArrayList<>();
-    int totalBabies = femaleCount + maleCount;
     int frequency = 0;
     int precentage = 0;
     int i = 1;
@@ -114,6 +111,7 @@ public class ArrayListFile {
     displayUniqueName[0][0] = "Name";
     displayUniqueName[0][1] = "Frequency";
     displayUniqueName[0][2] = "%  ";
+
     // Create two arraylists for male and female containing nodes
     while (arrayIterator.hasNext()) {
       // Grab the node
@@ -129,21 +127,21 @@ public class ArrayListFile {
     Iterator<node> femaleIterator = femaleNames.iterator();
     Iterator<node> maleIterator = maleNames.iterator();
     while (femaleIterator.hasNext()) {
+      node femaleNode = femaleIterator.next();
       while (maleIterator.hasNext()) {
         // Create nodes for male and female
-        node femaleNode = femaleIterator.next();
         node maleNode = maleIterator.next();
         // Find the frequency of the male and female together
         frequency = femaleNode.occur + maleNode.occur;
         // Make sure the two names are the same, the frequency is greater than 5, and for only 5 names
         if ((femaleNode.name.equals(maleNode.name)) && (frequency >= 5) && (i <= 5)){
-          System.out.println("female " + femaleNode.occur + " male " + maleNode.occur);
           displayUniqueName[i][0] = femaleNode.name;
           displayUniqueName[i][1] = Integer.toString(frequency);
-          displayUniqueName[i][2] = String.format("%.2f", ((float)frequency / (float)totalBabies));
+          displayUniqueName[i][2] = String.format("%.2f", ((float)frequency / (float)totalBabies * 100));
           i++;
         }
       }
+      maleIterator = maleNames.iterator();
     }
 
     for (String[] row : displayUniqueName) {
@@ -158,12 +156,11 @@ public class ArrayListFile {
 
    */
 
-  public static void DisplayName(ArrayList<node> userArray, int femaleCount, int maleCount) {
+  public static void DisplayName(ArrayList<node> userArray, int totalBabies) {
 
     // Make arraylist with names
     ArrayList<String> babyNames = new ArrayList<>();
     Iterator<node> namesIterator = userArray.iterator();
-    int totalBabies = femaleCount + maleCount;
     float precentage = 0;
 
     // Create arraylist with names
@@ -174,7 +171,6 @@ public class ArrayListFile {
 
     String[] sortedNames = babyNames.toArray(new String[babyNames.size()]);
     Arrays.sort(sortedNames);
-    //System.out.println(Arrays.toString(sortedNames));
 
     Iterator<node> nIterator = userArray.iterator();
     for (String name : sortedNames) {

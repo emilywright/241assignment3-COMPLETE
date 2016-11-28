@@ -132,9 +132,12 @@ public class handle {
     System.out.println("Loading the data structure, due to large file size this may take a second. There will be a message indicating when complete"); // Emily please make sure to add this after it's done loading.
 
     ArrayList<node> userArray = new ArrayList<>();
+    int femaleTotal = 0;
+    int maleTotal = 0;
     int maleCount = 0;
     int femaleCount = 0;
     int rank = 0;
+    int totalBabies = 0;
     while (fileInfo.hasNext()) {
 
       String currLine = fileInfo.nextLine();
@@ -142,9 +145,13 @@ public class handle {
       if (currLineSplit[1].charAt(0) == 'M' || currLineSplit[1].charAt(0) == 'm') {
         maleCount += 1;
         rank = maleCount;
+        maleTotal = maleTotal + Integer.parseInt(currLineSplit[2]);
+        totalBabies = totalBabies + Integer.parseInt(currLineSplit[2]);
       } else {
         femaleCount += 1;
         rank = femaleCount;
+        femaleTotal = femaleTotal + Integer.parseInt(currLineSplit[2]);
+        totalBabies = totalBabies + Integer.parseInt(currLineSplit[2]);
       }
 
       node currNode = new node(currLineSplit[0], Integer.parseInt(currLineSplit[2]), currLineSplit[1].charAt(0), rank);
@@ -166,17 +173,17 @@ public class handle {
     } else if (funcChoice == 2) {
 
       System.out.println("You chose MostPopularName");
-      ArrayListFile.MostPopularName(userArray, femaleCount, maleCount);
+      ArrayListFile.MostPopularName(userArray, maleTotal, femaleTotal);
 
     } else if (funcChoice == 3) {
 
       System.out.println("You chose UniqueName");
-      ArrayListFile.UniqueName(userArray, femaleCount, maleCount);
+      ArrayListFile.UniqueName(userArray, totalBabies);
 
     } else if (funcChoice == 4) {
 
       System.out.println("You chose DisplayName");
-      ArrayListFile.DisplayName(userArray, femaleCount, maleCount);
+      ArrayListFile.DisplayName(userArray, totalBabies);
 
     } else {
 
