@@ -112,7 +112,7 @@ public class handle {
         femaleCount += 1;
         rank = femaleCount;
         femaleTotal = femaleTotal + Integer.parseInt(currLineSplit[2]);
-        totalBabies = totalBabies + Integer.parseInt(currLineSplit[2]);
+        totalBabies = totalBabies + Integer.parseInt(currLineSplit[2]);
         node currNode = new node(Integer.parseInt(currLineSplit[2]), currLineSplit[1].charAt(0), rank);
         userFemaleMap.put(currLineSplit[0], currNode);
       }
@@ -133,17 +133,17 @@ public class handle {
     } else if (funcChoice == 2) {
 
       System.out.println("You chose MostPopularName");
-      ArrayListFile.MostPopularName(userMaleMap, userFemaleMap, maleTotal, femaleTotal);
+      HashMapFile.MostPopularName(userMaleMap, userFemaleMap, maleTotal, femaleTotal);
 
     } else if (funcChoice == 3) {
 
       System.out.println("You chose UniqueName");
-      ArrayListFile.UniqueName(userMaleMap, userFemaleMap, totalBabies);
+      HashMapFile.UniqueName(userMaleMap, userFemaleMap, totalBabies);
 
     } else if (funcChoice == 4) {
 
       System.out.println("You chose DisplayName");
-      ArrayListFile.DisplayName(userMaleMap, userFemaleMap, totalBabies);
+      HashMapFile.DisplayName(userMaleMap, userFemaleMap, totalBabies);
 
     } else {
 

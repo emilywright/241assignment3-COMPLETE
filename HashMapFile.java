@@ -1,4 +1,6 @@
 
+import java.util.HashMap;
+
 public class HashMapFile {
   /*
       SearchName for a name returns number of male and female babies born in that year who has that name.
@@ -6,7 +8,7 @@ public class HashMapFile {
 
   */
 
-  public static void SearchName(String name, HashMap<node> userMaleMap, HashMap<node> userFemaleMap) {
+  public static void SearchName(String name, HashMap<String, node> userMaleMap, HashMap<String, node> userFemaleMap) {
     System.out.println("Year Male Male-Rank Female Female-Rank");
     System.out.print("2014  ");
     // If the male and/or female version of the name DNE
@@ -21,7 +23,7 @@ public class HashMapFile {
 
    */
 
-  public static void MostPopularName(HashMap<node> userMaleMap, HashMap<node> userFemaleMap, int maleTotal, int femaleTotal) {
+  public static void MostPopularName(HashMap<String, node> userMaleMap, HashMap<String, node> userFemaleMap, int maleTotal, int femaleTotal) {
 
   }
 
@@ -31,7 +33,7 @@ public class HashMapFile {
 
    */
 
-  public static void UniqueName(HashMap<node> userMaleMap, HashMap<node> userFemaleMap, int totalBabies) {
+  public static void UniqueName(HashMap<String, node> userMaleMap, HashMap<String, node> userFemaleMap, int totalBabies) {
 
   }
 
@@ -42,7 +44,7 @@ public class HashMapFile {
 
    */
 
-  public static void DisplayName(HashMap<node> userMaleMap, HashMap<node> userFemaleMap, int totalBabies) {
+  public static void DisplayName(HashMap<String, node> userMaleMap, HashMap<String, node> userFemaleMap, int totalBabies) {
 
   }
 

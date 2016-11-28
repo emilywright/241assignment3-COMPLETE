@@ -32,9 +32,10 @@ public class node {
   }
 
   //This creates a node for the HashMap
-  public node (int occur, char gender) {
+  public node (int occur, char gender, int rank) {
     this.occur = occur;
     this.gender = gender;
+    this.rank = rank;
   }
 
   //This creates an entirely blank node.
