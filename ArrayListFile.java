@@ -127,9 +127,10 @@ public class ArrayListFile {
     Iterator<node> femaleIterator = femaleNames.iterator();
     Iterator<node> maleIterator = maleNames.iterator();
     while (femaleIterator.hasNext()) {
+      // Create node for female
       node femaleNode = femaleIterator.next();
       while (maleIterator.hasNext()) {
-        // Create nodes for male and female
+        // Create node for male
         node maleNode = maleIterator.next();
         // Find the frequency of the male and female together
         frequency = femaleNode.occur + maleNode.occur;

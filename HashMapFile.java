@@ -1,6 +1,7 @@
 
 import java.util.HashMap;
 import java.util.Arrays;
+import java.util.ArrayList;
 
 public class HashMapFile {
   /*
@@ -91,6 +92,35 @@ public class HashMapFile {
 
   public static void UniqueName(HashMap<String, node> userMaleMap, HashMap<String, node> userFemaleMap, int totalBabies) {
 
+    String[][] displayUniqueName = new String[6][3];
+    int frequency = 0;
+    int precentage = 0;
+    int i = 1;
+    // Initial Titles
+    displayUniqueName[0][0] = "Name";
+    displayUniqueName[0][1] = "Frequency";
+    displayUniqueName[0][2] = "%  ";
+
+    for (String mkey : userMaleMap.keySet()) {
+      // Create node for male
+      node maleNode = userMaleMap.get(mkey);
+      for (String fkey : userFemaleMap.keySet()) {
+        // Create node for female
+        node femaleNode = userFemaleMap.get(fkey);
+        // Find the frequency of the male and female together
+        frequency = femaleNode.occur + maleNode.occur;
+        if ((fkey.equals(mkey)) && (frequency >= 5) && (i <= 5)){
+          displayUniqueName[i][0] = fkey;
+          displayUniqueName[i][1] = Integer.toString(frequency);
+          displayUniqueName[i][2] = String.format("%.2f", ((float)frequency / (float)totalBabies * 100));
+          i++;
+        }
+      }
+    }
+
+    for (String[] row : displayUniqueName) {
+       System.out.println(Arrays.toString(row));
+    }
   }
 
   /*
@@ -101,7 +131,41 @@ public class HashMapFile {
    */
 
   public static void DisplayName(HashMap<String, node> userMaleMap, HashMap<String, node> userFemaleMap, int totalBabies) {
+    // Make arraylist with names
+    ArrayList<String> babyNames = new ArrayList<>();
+    float precentage = 0;
 
+    ArrayList<String> babyFemaleNames = new ArrayList<String>(userFemaleMap.keySet());
+    ArrayList<String> babyMaleNames = new ArrayList<String>(userMaleMap.keySet());
+    babyNames.addAll(babyMaleNames);
+    babyNames.addAll(babyFemaleNames);
+
+    String[] sortedNames = babyNames.toArray(new String[babyNames.size()]);
+    Arrays.sort(sortedNames);
+
+    for (String name : sortedNames) {
+        int count = 0;
+        System.out.print("Name: " + name  + ", ");
+        // Iterate through all of the nodes until finds count
+        for (String mkey : userMaleMap.keySet()) {
+          // Create node for male
+          node maleNode = userMaleMap.get(mkey);
+          if(name.equals(mkey)){
+            count = count + maleNode.occur;
+          }
+        }
+        for (String fkey : userFemaleMap.keySet()) {
+          // Create node for female
+          node femaleNode = userFemaleMap.get(fkey);
+          if(name.equals(fkey)) {
+            count = count + femaleNode.occur;
+          }
+        }
+        precentage = (float)count / (float)totalBabies;
+        Double p = precentage * 100.00;
+        System.out.print("Count: " + count + ", ");
+        System.out.printf("Precentage: %.2f \n", p);
+    }
   }
 
 
