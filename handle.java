@@ -102,10 +102,10 @@ public class handle {
       String currLine = fileInfo.nextLine();
       String[] currLineSplit = currLine.split("\\,");
       if (currLineSplit[1].charAt(0) == 'M' || currLineSplit[1].charAt(0) == 'm') {
+        maleCount += 1;
         rank = maleCount;
         maleTotal = maleTotal + Integer.parseInt(currLineSplit[2]);
         totalBabies = totalBabies + Integer.parseInt(currLineSplit[2]);
-        maleCount += 1;
         node currNode = new node(Integer.parseInt(currLineSplit[2]), currLineSplit[1].charAt(0), rank);
         userMaleMap.put(currLineSplit[0], currNode);
       } else {
@@ -187,7 +187,7 @@ public class handle {
       userArray.add(currNode);
     }
 
-
+    System.out.println("Load complete!\n");
     System.out.println("\nWhich function did you want to use? 1: SearchName, 2: MostPopularName, 3: UniqueName, 4: DisplayName");
     Scanner options = new Scanner(System.in);
     int funcChoice = options.nextInt();
