@@ -56,24 +56,28 @@ public class HashMapFile {
     displayPopNames[0][5] = "%  ";
 
     // input male names
-    for (String key : userMaleMap.keySet()) {
-      node maleNode = userMaleMap.get(key);
-      if ((l <= 10) && (maleNode.rank == l)) {
-        displayPopNames[l][3] = key;
-        displayPopNames[l][4] = Integer.toString(maleNode.occur);
-        displayPopNames[l][5] = String.format("%.2f", ((float)maleNode.occur / (float)maleTotal * 100));
-        l++;
+    while (l < 11) {
+      for (String key : userMaleMap.keySet()) {
+        node maleNode = userMaleMap.get(key);
+        if ((l <= 10) && (maleNode.rank == l)) {
+          displayPopNames[l][3] = key;
+          displayPopNames[l][4] = Integer.toString(maleNode.occur);
+          displayPopNames[l][5] = String.format("%.2f", ((float)maleNode.occur / (float)maleTotal * 100));
+          l++;
+        }
       }
     }
 
-    // input female names
-    for (String key : userFemaleMap.keySet()) {
-      node femaleNode = userFemaleMap.get(key);
-      if ((j <= 10) && (femaleNode.rank == j)) {
-        displayPopNames[j][0] = key;
-        displayPopNames[j][1] = Integer.toString(femaleNode.occur);
-        displayPopNames[j][2] = String.format("%.2f", ((float)femaleNode.occur / (float)femaleTotal * 100));
-        j++;
+    while (j < 11) {
+      // input female names
+      for (String key : userFemaleMap.keySet()) {
+        node femaleNode = userFemaleMap.get(key);
+        if ((j <= 10) && (femaleNode.rank == j)) {
+          displayPopNames[j][0] = key;
+          displayPopNames[j][1] = Integer.toString(femaleNode.occur);
+          displayPopNames[j][2] = String.format("%.2f", ((float)femaleNode.occur / (float)femaleTotal * 100));
+          j++;
+        }
       }
     }
 

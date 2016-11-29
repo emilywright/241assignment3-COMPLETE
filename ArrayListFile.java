@@ -35,6 +35,7 @@ public class ArrayListFile {
 		}
     // If name DNE
     if (maleInfo.equals("NA    NA   ") && femaleInfo.equals("NA    NA")){
+      System.out.println();
       System.out.println("Name not found.");
     } else {
       // Print info
