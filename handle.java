@@ -34,7 +34,6 @@ public class handle {
   public static void handleTree(Scanner fileInfo) {
 
     System.out.println("You chose: Tree");
-    System.out.println("Loading the data structure, due to large file size this may take a second. There will be a message indicating when complete");
     BinarySearchTree userTree = new BinarySearchTree();
     int maleCount = 0;
     int femaleCount = 0;
@@ -53,7 +52,6 @@ public class handle {
       BinarySearchTree.treeInsert(userTree, currNode);
 
     } // It's best not to inorder walk after inserting, due to a stack overflow. It'll be okay with smaller text files.
-    System.out.println("Load complete!\n");
     System.out.println("\nWhich function did you want to use? 1: SearchName, 2: MostPopularName, 3: UniqueName, 4: DisplayName");
     Scanner options = new Scanner(System.in);
     int funcChoice = options.nextInt();
@@ -63,7 +61,8 @@ public class handle {
       System.out.println("Please enter a name to search for: ");
       Scanner nameScan = new Scanner(System.in);
       String name = nameScan.next();
-
+	  node searchNode = BinarySearchTree.searchTreeName(userTree.root, name);
+	  System.out.println("Name found! " + searchNode.name);
     } else if (funcChoice == 2) {
 
       System.out.println("You chose MostPopularName");
@@ -86,7 +85,6 @@ public class handle {
   public static void handleHashMap(Scanner fileInfo) {
 
     System.out.println("You chose: HashMap");
-    System.out.println("Loading the data structure, due to large file size this may take a second. There will be a message indicating when complete"); // Emily please make sure to add this after it's done loading.
 
     HashMap<String, node> userFemaleMap = new HashMap<>();
     HashMap<String, node> userMaleMap = new HashMap<>();
@@ -118,7 +116,6 @@ public class handle {
       }
     }
 
-    System.out.println("Load complete!\n");
     System.out.println("\nWhich function did you want to use? 1: SearchName, 2: MostPopularName, 3: UniqueName, 4: DisplayName");
     Scanner options = new Scanner(System.in);
     int funcChoice = options.nextInt();
@@ -157,7 +154,6 @@ public class handle {
   public static void handleArrayList(Scanner fileInfo) {
 
     System.out.println("You chose: ArrayList");
-    System.out.println("Loading the data structure, due to large file size this may take a second. There will be a message indicating when complete"); // Emily please make sure to add this after it's done loading.
 
     ArrayList<node> userArray = new ArrayList<>();
     int femaleTotal = 0;
@@ -186,8 +182,7 @@ public class handle {
       node currNode = new node(currLineSplit[0], Integer.parseInt(currLineSplit[2]), currLineSplit[1].charAt(0), rank);
       userArray.add(currNode);
     }
-
-    System.out.println("Load complete!\n");
+	
     System.out.println("\nWhich function did you want to use? 1: SearchName, 2: MostPopularName, 3: UniqueName, 4: DisplayName");
     Scanner options = new Scanner(System.in);
     int funcChoice = options.nextInt();

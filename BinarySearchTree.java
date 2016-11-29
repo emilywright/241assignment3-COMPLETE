@@ -6,6 +6,7 @@ Description: A Binary Search Tree object that can perform operations upon the tr
              Most of the functions are adapted from our algorithms book to fit out own tree.
 
 */
+import java.util.*;
 
 public class BinarySearchTree {
 
@@ -137,8 +138,35 @@ public class BinarySearchTree {
     }
   }
 
-  public static void MostPopularName(BinarySearchTree tree) {
-
+  public static node searchTreeName(node root, String key) {
+	  if (root == null) {
+		  return null;
+	  }
+	  
+	  Stack<node> nodeStack = new Stack<node>();
+	  node currRoot = root;
+	  
+	  while (currRoot != null) {
+		  nodeStack.push(currRoot);
+		  currRoot = currRoot.left;
+	  }
+	  
+	  while (nodeStack.size() > 0) {
+		  
+		  node visitNode = nodeStack.pop();
+		  if (visitNode.name.equals(key)) {
+			  return visitNode;
+		  }
+		  if (visitNode.right != null) {
+			  visitNode = visitNode.right;
+			  
+			  while (visitNode != null) {
+				  nodeStack.push(visitNode);
+				  visitNode = visitNode.left;
+			  }
+		  }
+	  }
+  return null;
   }
 
 } //End BinarySearchTree
