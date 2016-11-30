@@ -99,6 +99,9 @@ public class handle {
 
       System.out.println("You chose DisplayName");
       BinarySearchTree.DisplayName(mainTree.root, maleCount + femaleCount);
+  } else {
+
+    System.out.println("Please choose a valid option.");
   }
 }
 
