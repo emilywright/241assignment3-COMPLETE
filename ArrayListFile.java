@@ -189,7 +189,7 @@ public class ArrayListFile {
         precentage = (float)count / (float)totalBabies;
         Double p = precentage * 100.00;
         System.out.print("Count: " + count + ", ");
-        System.out.printf("Precentage: %.2f \n", p);
+        System.out.printf("Percentage: %.2f \n", p);
     }
   }
 

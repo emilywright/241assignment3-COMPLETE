@@ -34,7 +34,9 @@ public class handle {
   public static void handleTree(Scanner fileInfo) {
 
     System.out.println("You chose: Tree");
-    BinarySearchTree userTree = new BinarySearchTree();
+    BinarySearchTree maleTree = new BinarySearchTree();
+    BinarySearchTree femaleTree = new BinarySearchTree();
+    BinarySearchTree mainTree = new BinarySearchTree();
     int maleCount = 0;
     int femaleCount = 0;
 
@@ -43,13 +45,19 @@ public class handle {
       String currLine = fileInfo.nextLine();
       String[] currLineSplit = currLine.split("\\,");
       if (currLineSplit[1].charAt(0) == 'M' || currLineSplit[1].charAt(0) == 'm') {
+
         maleCount += 1;
+        node currNode = new node(currLineSplit[0], Integer.parseInt(currLineSplit[2]), currLineSplit[1].charAt(0), maleCount);
+        BinarySearchTree.treeInsert(maleTree, currNode);
       } else {
+
         femaleCount += 1;
+        node currNode = new node(currLineSplit[0], Integer.parseInt(currLineSplit[2]), currLineSplit[1].charAt(0), femaleCount);
+        BinarySearchTree.treeInsert(femaleTree, currNode);
       }
 
-      node currNode = new node(currLineSplit[0], Integer.parseInt(currLineSplit[2]), currLineSplit[1].charAt(0));
-      BinarySearchTree.treeInsert(userTree, currNode);
+      node mainNode = new node(currLineSplit[0], Integer.parseInt(currLineSplit[2]), currLineSplit[1].charAt(0));
+      BinarySearchTree.treeInsert(mainTree, mainNode);
 
     } // It's best not to inorder walk after inserting, due to a stack overflow. It'll be okay with smaller text files.
     System.out.println("\nWhich function did you want to use? 1: SearchName, 2: MostPopularName, 3: UniqueName, 4: DisplayName");
@@ -61,8 +69,26 @@ public class handle {
       System.out.println("Please enter a name to search for: ");
       Scanner nameScan = new Scanner(System.in);
       String name = nameScan.next();
-	  node searchNode = BinarySearchTree.searchTreeName(userTree.root, name);
-	  System.out.println("Name found! " + searchNode.name);
+  	  node maleNode = BinarySearchTree.searchTreeName(maleTree.root, name);
+      node femaleNode = BinarySearchTree.searchTreeName(femaleTree.root, name);
+
+      //These next few lines just ensure formatting doesn't print weird.
+  	  System.out.println("Year      " + "Male      " + "Rank-Male " + "Female    " + "Rank-Female");
+      System.out.print("2014      ");
+      System.out.print(maleNode.occur);
+      for (int i = 0; i < (10 - String.valueOf(maleNode.occur).length()); i++) {
+        System.out.print(" ");
+      }
+      System.out.print(maleNode.rank);
+      for (int i = 0; i < (10 - String.valueOf(maleNode.rank).length()); i++) {
+        System.out.print(" ");
+      }
+      System.out.print(femaleNode.occur);
+      for (int i = 0; i < (10 - String.valueOf(femaleNode.occur).length()); i++) {
+        System.out.print(" ");
+      }
+      System.out.print(femaleNode.rank);
+
     } else if (funcChoice == 2) {
 
       System.out.println("You chose MostPopularName");
@@ -72,13 +98,9 @@ public class handle {
     } else if (funcChoice == 4) {
 
       System.out.println("You chose DisplayName");
-    } else {
-
-      System.out.println("Please choose a valid option.");
-    }
-
+      BinarySearchTree.DisplayName(mainTree.root, maleCount + femaleCount);
   }
-
+}
 
 //--------------------------------------------------------------------------------------------------------------------------------------
   // Code for HashMap here.
@@ -182,7 +204,7 @@ public class handle {
       node currNode = new node(currLineSplit[0], Integer.parseInt(currLineSplit[2]), currLineSplit[1].charAt(0), rank);
       userArray.add(currNode);
     }
-	
+
     System.out.println("\nWhich function did you want to use? 1: SearchName, 2: MostPopularName, 3: UniqueName, 4: DisplayName");
     Scanner options = new Scanner(System.in);
     int funcChoice = options.nextInt();

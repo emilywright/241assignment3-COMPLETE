@@ -17,18 +17,19 @@ public class node {
     this.right = rightChild;
   }
 
-  //This creates a node without the pointers
-  public node (String name, int occur, char gender) {
-    this.name = name;
-    this.occur = occur;
-    this.gender = gender;
-  }
-
+  //Constructs a node with all necessary info.
   public node (String name, int occur, char gender, int rank) {
     this.name = name;
     this.occur = occur;
     this.gender = gender;
     this.rank = rank;
+  }
+
+  //This creates a node without the pointers
+  public node (String name, int occur, char gender) {
+    this.name = name;
+    this.occur = occur;
+    this.gender = gender;
   }
 
   //This creates a node for the HashMap

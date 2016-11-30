@@ -16,6 +16,12 @@ Issues: The scanner needs to be reset, otherwise you can only pick one data stru
 
 import java.util.Scanner;
 import java.io.*;
+/*
+
+Author: Christian Brintnall
+Description: The main driver file. Compile this one to test Code
+
+*/
 
 public class names {
 

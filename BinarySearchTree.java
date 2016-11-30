@@ -6,7 +6,10 @@ Description: A Binary Search Tree object that can perform operations upon the tr
              Most of the functions are adapted from our algorithms book to fit out own tree.
 
 */
+
 import java.util.*;
+import java.text.Collator;
+import java.util.Locale;
 
 public class BinarySearchTree {
 
@@ -19,7 +22,6 @@ public class BinarySearchTree {
   }
 
   //Inserts a node into a tree, starts by checking if theres a root if not we insert the node there.
-  //This algorithm is directly adapted from our textbook.
   public static void treeInsert(BinarySearchTree tree, node z) {
 
     node y = null;
@@ -142,24 +144,24 @@ public class BinarySearchTree {
 	  if (root == null) {
 		  return null;
 	  }
-	  
+
 	  Stack<node> nodeStack = new Stack<node>();
 	  node currRoot = root;
-	  
+
 	  while (currRoot != null) {
 		  nodeStack.push(currRoot);
 		  currRoot = currRoot.left;
 	  }
-	  
+
 	  while (nodeStack.size() > 0) {
-		  
+
 		  node visitNode = nodeStack.pop();
 		  if (visitNode.name.equals(key)) {
 			  return visitNode;
 		  }
 		  if (visitNode.right != null) {
 			  visitNode = visitNode.right;
-			  
+
 			  while (visitNode != null) {
 				  nodeStack.push(visitNode);
 				  visitNode = visitNode.left;
@@ -169,4 +171,45 @@ public class BinarySearchTree {
   return null;
   }
 
-} //End BinarySearchTree
+  public static void DisplayName(node root, int total) {
+
+    ArrayList<String> printList = new ArrayList<String>();
+	  Stack<node> nodeStack = new Stack<node>();
+	  node currRoot = root;
+
+	  while (currRoot != null) {
+
+		  nodeStack.push(currRoot);
+		  currRoot = currRoot.left;
+	  }
+
+	  while (nodeStack.size() > 0) {
+
+		  node visitNode = nodeStack.pop();
+      printList.add(visitNode.name);
+		  if (visitNode.right != null) {
+
+			  visitNode = visitNode.right;
+			  while (visitNode != null) {
+
+				  nodeStack.push(visitNode);
+				  visitNode = visitNode.left;
+			  }
+		  }
+	  }
+
+    String[] sortedArray = printList.toArray(new String[printList.size()]);
+    Arrays.sort(sortedArray);
+    int totals = 0;
+    for (int i = 0; i < sortedArray.length; i++) {
+      node currName = searchTreeName(root, sortedArray[i]);
+      totals += currName.occur;
+    }
+    for (int i = 0; i < sortedArray.length; i++) {
+      node currName = searchTreeName(root, sortedArray[i]);
+      System.out.println(currName.occur + " / " + totals);
+      System.out.print("Name: " + sortedArray[i] + ", Count: " + currName.occur + ",");
+      System.out.printf("Percentage: %.2f \n", (float)(currName.occur/ totals) * 100.00);
+    }
+  }
+}
