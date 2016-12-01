@@ -46,6 +46,7 @@ public class HashMapFile {
     String[][] displayPopNames = new String[11][6];
     int j = 1;
     int l = 1;
+    String pre = "%";
 
     // Initial Titles
     displayPopNames[0][0] = "Female Name";
@@ -62,7 +63,7 @@ public class HashMapFile {
         if ((l <= 10) && (maleNode.rank == l)) {
           displayPopNames[l][3] = key;
           displayPopNames[l][4] = Integer.toString(maleNode.occur);
-          displayPopNames[l][5] = String.format("%.2f", ((float)maleNode.occur / (float)maleTotal * 100));
+          displayPopNames[l][5] = String.format("%.2f%s", ((float)maleNode.occur / (float)maleTotal * 100), pre);
           l++;
         }
       }
@@ -75,7 +76,7 @@ public class HashMapFile {
         if ((j <= 10) && (femaleNode.rank == j)) {
           displayPopNames[j][0] = key;
           displayPopNames[j][1] = Integer.toString(femaleNode.occur);
-          displayPopNames[j][2] = String.format("%.2f", ((float)femaleNode.occur / (float)femaleTotal * 100));
+          displayPopNames[j][2] = String.format("%.2f%s", ((float)femaleNode.occur / (float)femaleTotal * 100), pre);
           j++;
         }
       }
@@ -99,6 +100,7 @@ public class HashMapFile {
     String[][] displayUniqueName = new String[6][6];
     int frequency = 0;
     int precentage = 0;
+    String pre = "%";
     int i = 1;
     int j = 1;
 
@@ -117,7 +119,7 @@ public class HashMapFile {
       if ((frequency == 5) && (i <= 5)){
         displayUniqueName[i][0] = mkey;
         displayUniqueName[i][1] = Integer.toString(frequency);
-        displayUniqueName[i][2] = String.format("%.2f", ((float)frequency / (float)totalBabies * 100));
+        displayUniqueName[i][2] = String.format("%.7f%s", ((float)frequency / (float)totalBabies * 100), pre);
         i++;
       }
     }
@@ -130,7 +132,7 @@ public class HashMapFile {
       if ((frequency == 5) && (j <= 5)){
         displayUniqueName[j][3] = fkey;
         displayUniqueName[j][4] = Integer.toString(frequency);
-        displayUniqueName[j][5] = String.format("%.2f", ((float)frequency / (float)totalBabies * 100));
+        displayUniqueName[j][5] = String.format("%.7f%s", ((float)frequency / (float)totalBabies * 100), pre);
         j++;
       }
     }
@@ -151,6 +153,7 @@ public class HashMapFile {
     // Make arraylist with names
     ArrayList<String> babyNames = new ArrayList<>();
     float precentage = 0;
+    String pre = "%";
 
     ArrayList<String> babyFemaleNames = new ArrayList<String>(userFemaleMap.keySet());
     ArrayList<String> babyMaleNames = new ArrayList<String>(userMaleMap.keySet());
@@ -181,7 +184,7 @@ public class HashMapFile {
         precentage = (float)count / (float)totalBabies;
         Double p = precentage * 100.00;
         System.out.print("Count: " + count + ", ");
-        System.out.printf("Percentage: %.2f \n", p);
+        System.out.printf("Percentage: %.2f%s \n", p, pre);
     }
   }
 
