@@ -22,6 +22,8 @@ data structures to print it out alphabetically. MostPopularName took a bit of ti
 take much time to implement. MostPopularName with a HashMap proved to be logistically difficult due to the nature of a HashMap. Since you cannot do an inorder
 traversal of a HashMap without using an external function, it had to be iterated through multiple times to determine the most popular occurences.
 
+Towards the end of the program we ran into some issues with our UniqueNames not displaying 5 names in our test file, this was solved in BST by checking if the return list was size 5. If it wasn't, it would continue to find the successor of the the previous value, as there was always at least ONE value.
+
 Tests:
 We used a text file test, and a non text file test. The text file was simply a smaller text file that tested to ensure it 1.) ran with multiple text files
 2.) the functions adapted to different values 3.) could adapt to smaller values 4.) our runtime scaled.
