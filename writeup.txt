@@ -1,0 +1,35 @@
+WriteUp:
+
+Names:
+Christian Brintnall
+Emily Wright
+
+Acknowledgement:
+Everything currently works - The descriptions are a bit ambigious in the .PDF, but we have checked with multiple sources, and took notes on the professor's
+explanation of the functions, and we believe we have them right. So if anything is wrong, it's just the numbers. Not the actual calculation of the numbers,
+but the numbers themselves.
+
+We truly believe we have the correct outputs for everything.
+
+Efficiency:
+We believe our program is actually pretty efficient. There is barely any hangtime as we attempt to reuse calculations in as many places as possible, so
+instead of calculating something everytime it's needed it's just calculated in the scope above that, and used within the various scopes contained.
+
+Challenges:
+Figuring out how to alphabetically sort the tree was an insanely difficult part of the assignment, as I attempted to create a separate BST that inserted
+lexigraphically with the first character of each name, which proved to be way too difficult. Eventually I figured I can manipulate the BST and other
+data structures to print it out alphabetically. MostPopularName took a bit of time to figure out the BST logic, but after it was figured out it didn't
+take much time to implement. MostPopularName with a HashMap proved to be logistically difficult due to the nature of a HashMap. Since you cannot do an inorder
+traversal of a HashMap without using an external function, it had to be iterated through multiple times to determine the most popular occurences.
+
+Tests:
+We used a text file test, and a non text file test. The text file was simply a smaller text file that tested to ensure it 1.) ran with multiple text files
+2.) the functions adapted to different values 3.) could adapt to smaller values 4.) our runtime scaled.
+
+Our runtime infact was nearly instant for our small test file, our functions could adapt to smaller values. It made UniqueName seem useless, but it still did its job. Found unique names
+for each gender. This was the case for just different values in general. And of course if these are all true, then running with multiple text files is true as well.
+
+Instead of having a second text file, which seemed useless as you can only test so many different forms we actually made a java file that tested every single function of our BST.
+This ensured every time a function was added, that function worked properly. If you run that test file, you'll see it perform all the tests we used. Some functions were added after
+that test, and some were removed after. Removal included removing inorder recursive walk. This function worked perfectly, but when used with our large text file gave a stack overflow.
+Addition included the assignment functions and some helper functions such as findPredecessor.
