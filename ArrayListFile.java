@@ -1,3 +1,4 @@
+
 import java.util.Iterator;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -7,12 +8,11 @@ public class ArrayListFile {
   /*
       SearchName for a name returns number of male and female babies born in that year who has that name.
       It should also return a rank for this name (how popular is this name for boys and girls).
+
   */
 
   public static void SearchName(String name, ArrayList<node> userArray) {
 
-    System.out.println("Year Male Male-Rank Female Female-Rank");
-    System.out.print("2014  ");
     // If the male and/or female version of the name DNE
     String maleInfo = "NA    NA   ";
     String femaleInfo = "NA    NA";
@@ -37,6 +37,8 @@ public class ArrayListFile {
       System.out.println("Name not found.");
     } else {
       // Print info
+      System.out.println("Year Male Male-Rank Female Female-Rank");
+      System.out.print("2014  ");
       System.out.println(maleInfo + "    " + femaleInfo);
     }
   }
@@ -44,6 +46,7 @@ public class ArrayListFile {
   /*
       MostPopularName returns the most popular 10 male and female baby names for a
       given year with their numbers and percentage of babies with that name.
+
    */
 
   public static void MostPopularName(ArrayList<node> userArray, int maleTotal, int femaleTotal) {
@@ -86,14 +89,45 @@ public class ArrayListFile {
       }
 
       // Print the double array with Popular name info
-     for (String[] row : displayPopNames) {
-        System.out.println(Arrays.toString(row));
-     }
+      for(int r=0; r<displayPopNames.length; r++) {
+         for(int c=0; c < displayPopNames[r].length; c++){
+           if((r == 0) && (c <= 5)){
+             System.out.print(displayPopNames[r][c] + "        ");
+           } else if ((c == 0) && (r <= 10)) {
+             System.out.print(displayPopNames[r][c]);
+             for(int o = 0; o < 20 - String.valueOf(displayPopNames[r][c]).length(); o++){
+               System.out.print(" ");
+             }
+           } else if ((c == 1) && (r <= 10)) {
+             System.out.print(displayPopNames[r][c]);
+             for(int o = 0; o < 15 - String.valueOf(displayPopNames[r][c]).length(); o++){
+               System.out.print(" ");
+             }
+           } else if ((c == 2) && (r <= 10)) {
+             System.out.print(displayPopNames[r][c]);
+             for(int o = 0; o < 16 - String.valueOf(displayPopNames[r][c]).length(); o++){
+               System.out.print(" ");
+             }
+           } else if ((c == 3) && (r <= 10)) {
+             System.out.print(displayPopNames[r][c]);
+             for(int o = 0; o < 16 - String.valueOf(displayPopNames[r][c]).length(); o++){
+               System.out.print(" ");
+             }
+           } else {
+             System.out.print(displayPopNames[r][c]);
+             for(int o = 0; o < 15 - String.valueOf(displayPopNames[r][c]).length(); o++){
+               System.out.print(" ");
+             }
+           }
+         }
+         System.out.println();
+      }
   }
 
   /*
       UniqueName returns 5 male and female baby names that are unique with their frequency and percentage of babies with that name.
       For this method, ignore names that appear less than 5 times.
+
    */
 
   public static void UniqueName(ArrayList<node> userArray, int totalBabies) {
@@ -175,19 +209,38 @@ public class ArrayListFile {
       mlow++;
     }
 
-    /*for(int r=0; r<displayUniqueName.length; r++) {
+    for(int r=0; r<displayUniqueName.length; r++) {
        for(int c=0; c < displayUniqueName[r].length; c++){
          if((r == 0) && (c <= 5)){
-           System.out.print(displayUniqueName[r][c] + "      ");
+           System.out.print(displayUniqueName[r][c] + "        ");
+         } else if ((c == 0) && (r <= 5)) {
+           System.out.print(displayUniqueName[r][c]);
+           for(int o = 0; o < 23 - String.valueOf(displayUniqueName[r][c]).length(); o++){
+             System.out.print(" ");
+           }
+         } else if ((c == 1) && (r <= 5)) {
+           System.out.print(displayUniqueName[r][c]);
+           for(int o = 0; o < 10 - String.valueOf(displayUniqueName[r][c]).length(); o++){
+             System.out.print(" ");
+           }
+         } else if ((c == 2) && (r <= 5)) {
+           System.out.print(displayUniqueName[r][c]);
+           for(int o = 0; o < 16 - String.valueOf(displayUniqueName[r][c]).length(); o++){
+             System.out.print(" ");
+           }
+         } else if ((c == 3) && (r <= 5)) {
+           System.out.print(displayUniqueName[r][c]);
+           for(int o = 0; o < 20 - String.valueOf(displayUniqueName[r][c]).length(); o++){
+             System.out.print(" ");
+           }
          } else {
-           System.out.print(displayUniqueName[r][c] + "            ");
+           System.out.print(displayUniqueName[r][c]);
+           for(int o = 0; o < 11 - String.valueOf(displayUniqueName[r][c]).length(); o++){
+             System.out.print(" ");
+           }
          }
        }
        System.out.println();
-    }*/
-
-    for (String[] row : displayUniqueName) {
-       System.out.println(Arrays.toString(row));
     }
   }
 
@@ -195,6 +248,7 @@ public class ArrayListFile {
       DisplayName prints the names in alphabetical order,
       and next to each name prints the number of male and female babies that have this
       name and percentage of babies (male and female) for that name.
+
    */
 
   public static void DisplayName(ArrayList<node> userArray, int totalBabies) {
