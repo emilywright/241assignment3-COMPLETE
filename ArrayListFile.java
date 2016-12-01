@@ -131,10 +131,12 @@ public class ArrayListFile {
    */
 
   public static void UniqueName(ArrayList<node> userArray, int totalBabies) {
+    // Make array for displaying the unique names
     String[][] displayUniqueName = new String[6][6];
-    Iterator<node> arrayIterator = userArray.iterator();
+    // Arraylists for male and female names
     ArrayList<node> femaleNames = new ArrayList<>();
     ArrayList<node> maleNames = new ArrayList<>();
+    // Other variables for printing or adding to displayUniqueName
     String pre = "%";
     int frequency = 0;
     int precentage = 0;
@@ -154,7 +156,7 @@ public class ArrayListFile {
     displayUniqueName[0][4] = "Frequency  ";
     displayUniqueName[0][5] = "%  ";
 
-
+    Iterator<node> arrayIterator = userArray.iterator();
     // Create two arraylists for male and female containing nodes
     while (arrayIterator.hasNext()) {
       // Grab the node
@@ -175,6 +177,7 @@ public class ArrayListFile {
     // Iterate through the male and female list
     Iterator<node> femaleIterator = femaleNames.iterator();
     Iterator<node> maleIterator = maleNames.iterator();
+    // Loop until it finds the five smallest female names
     while (i <= 5) {
       while (femaleIterator.hasNext()) {
         // Create node for female
@@ -193,6 +196,7 @@ public class ArrayListFile {
       flow++;
     }
 
+    // Loop until it finds the five smallest male names
     while (j <= 5) {
       while (maleIterator.hasNext()) {
         // Create node for male
@@ -209,7 +213,8 @@ public class ArrayListFile {
       mlow++;
     }
 
-    for(int r=0; r<displayUniqueName.length; r++) {
+    // Display the names
+    for(int r=0; r < displayUniqueName.length; r++) {
        for(int c=0; c < displayUniqueName[r].length; c++){
          if((r == 0) && (c <= 5)){
            System.out.print(displayUniqueName[r][c] + "        ");
