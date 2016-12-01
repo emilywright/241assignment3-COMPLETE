@@ -1,5 +1,7 @@
 WriteUp:
 
+javac names.java TO COMPILE, RUN java names TO RUN OUR PROGRAM, DON'T USE ANY OTHER FILE. names.java IS OUR DRIVER FILE.
+
 Names:
 Christian Brintnall
 Emily Wright
