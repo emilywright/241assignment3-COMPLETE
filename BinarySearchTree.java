@@ -22,25 +22,31 @@ public class BinarySearchTree {
   }
 
   //Inserts a node into a tree, starts by checking if theres a root if not we insert the node there.
-  public static void treeInsert(BinarySearchTree tree, node z) {
+  public static void treeInsert(BinarySearchTree tree, node insert) {
 
-    node y = null;
-    node x = tree.root;
-    while (x != null) {
-      y = x;
-      if (z.occur < x.occur) {
-        x = x.left;
+    node nodeOne = null;
+    node nodeTwo = tree.root;
+    while (nodeTwo != null) {
+
+      nodeOne = nodeTwo;
+      if (insert.occur < nodeTwo.occur) {
+
+        nodeTwo = nodeTwo.left;
       } else {
-        x = x.right;
+
+        nodeTwo = nodeTwo.right;
       }
     }
-    z.parent = y;
-    if (y == null) {
-      tree.root = z;
-    } else if (z.occur < y.occur) {
-      y.left = z;
+    insert.parent = nodeOne;
+    if (nodeOne == null) {
+
+      tree.root = insert;
+    } else if (insert.occur < nodeOne.occur) {
+
+      nodeOne.left = insert;
     } else {
-      y.right = z;
+
+      nodeOne.right = insert;
     }
     tree.size++;
   }
@@ -51,97 +57,114 @@ public class BinarySearchTree {
   }
 
   //Pass in the root to find the min of the tree.
-  public static node treeMin(node x) {
+  public static node treeMin(node currMin) {
 
-    while (x.left != null) {
-      x = x.left;
+    while (currMin.left != null) {
+
+      currMin = currMin.left;
     }
-    return x;
+    return currMin;
   }
 
   //Pass in the root to find the max of a tree
-  public static node treeMax(node x) {
+  public static node treeMax(node currMax) {
 
-    while (x.right != null) {
-      x = x.right;
+    while (currMax.right != null) {
+
+      currMax = currMax.right;
     }
-    return x;
+    return currMax;
   }
 
   //Takes in a tree's root, and a key and returns the node with that key (occur).
-  public static node treeSearch(node x, int key) {
+  public static node treeSearch(node searchNode, int key) {
 
-    if ((x == null) || (key == x.occur)) {
-      return x;
+    if ((searchNode == null) || (key == searchNode.occur)) {
+
+      return searchNode;
     }
-    if (key < x.occur) {
-      return treeSearch(x.left, key);
+    if (key < searchNode.occur) {
+
+      return treeSearch(searchNode.left, key);
     } else {
-      return treeSearch(x.right, key);
+
+      return treeSearch(searchNode.right, key);
     }
   }
 
   //Takes in a node and finds the node containing the successor to that.
-  public static node treeSuccessor(node x) {
+  public static node treeSuccessor(node nodeSucc) {
 
-    if (x.right != null) {
-      return treeMin(x.right);
+    if (nodeSucc.right != null) {
+      return treeMin(nodeSucc.right);
     }
-    node y = x.parent;
-    while((y != null) && (x == y.right)) {
-      x = y;
-      y = y.parent;
+
+    node checkNode = nodeSucc.parent;
+    while((checkNode != null) && (nodeSucc == checkNode.right)) {
+
+      nodeSucc = checkNode;
+      checkNode = checkNode.parent;
     }
-    return y;
+    return checkNode;
   }
 
-  public static node treePredecessor(node Node) {
+  public static node treePredecessor(node nodePred) {
 
-        if (Node.left != null) {
-            return treeMax(Node.left);
+        if (nodePred.left != null) {
+            return treeMax(nodePred.left);
           }
 
-        node y = Node.parent;
-        node x = Node;
-        while (y != null && x == y.left) {
-            x = y;
-            y = y.parent;
+        node nodeOne = nodePred.parent;
+        node nodeTwo = nodePred;
+        while (nodeOne != null && nodeTwo == nodeOne.left) {
+
+            nodeTwo = nodeOne;
+            nodeOne = nodeOne.parent;
         }
-        return y;
+        return nodeOne;
     }
 
   //Moves nodes u into node z's position
-  public static void transplant(BinarySearchTree tree, node u, node v) {
+  public static void transplant(BinarySearchTree tree, node nodeSwitchOne, node nodeSwitchFinal) {
 
-    if (u.parent == null) {
-      tree.root = v;
-    } else if (u == u.parent.left) {
-      u.parent.left = v;
+    if (nodeSwitchOne.parent == null) {
+
+      tree.root = nodeSwitchFinal;
+    } else if (nodeSwitchOne == nodeSwitchOne.parent.left) {
+
+      nodeSwitchOne.parent.left = nodeSwitchFinal;
     } else {
-      u.parent.right = v;
+
+      nodeSwitchOne.parent.right = nodeSwitchFinal;
     }
-    if (v != null) {
-      v.parent = u.parent;
+    if (nodeSwitchFinal != null) {
+
+      nodeSwitchFinal.parent = nodeSwitchOne.parent;
     }
   }
 
   //Deletes a node from a tree, uses three cases to determine how this is performed.
-  public static void treeDelete(BinarySearchTree tree, node z) {
+  public static void treeDelete(BinarySearchTree tree, node deleteNode) {
 
-    if (z.left == null) {
-      transplant(tree, z, z.right);
-    } else if (z.right == null) {
-      transplant(tree, z, z.left);
+    if (deleteNode.left == null) {
+
+      transplant(tree, deleteNode, deleteNode.right);
+    } else if (deleteNode.right == null) {
+
+      transplant(tree, deleteNode, deleteNode.left);
     } else {
-      node y = treeMin(z.right);
-      if (y.parent != z) {
-        transplant(tree, y, y.right);
-        y.right = z.right;
-        y.right.parent = y;
+
+      node transplantNode = treeMin(deleteNode.right);
+      if (transplantNode.parent != deleteNode) {
+
+        transplant(tree, transplantNode, transplantNode.right);
+        transplantNode.right = deleteNode.right;
+        transplantNode.right.parent = transplantNode;
       }
-      transplant(tree, z, y);
-      y.left = z.left;
-      y.left.parent = y;
+
+      transplant(tree, deleteNode, transplantNode);
+      transplantNode.left = deleteNode.left;
+      transplantNode.left.parent = transplantNode;
     }
   }
 
@@ -270,6 +293,15 @@ public class BinarySearchTree {
 		  }
 	  }
 
+    //Checks if there are 5 names, if not we find the correct amount more!
+    if (printList.size() < 5) {
+      int currSize = printList.size();
+      for (int i = 1; i < 6 - currSize; i++) {
+        printList.add(treeSuccessor(printList.get(i - 1)));
+      }
+    }
+
+    //Prints out all the values.
     System.out.println("Name:     " + "Frequency:" + " Percentage:");
     for (int i = 0; i < printList.size(); i++) {
       System.out.print(printList.get(i).name);
