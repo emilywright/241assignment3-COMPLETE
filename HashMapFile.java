@@ -103,6 +103,22 @@ public class HashMapFile {
     String pre = "%";
     int i = 1;
     int j = 1;
+    int flow = Integer.MAX_VALUE;
+    int mlow = Integer.MAX_VALUE;
+
+    for (String malekey : userMaleMap.keySet()) {
+      node maleNode = userMaleMap.get(malekey);
+      if (maleNode.occur < mlow) {
+        mlow = maleNode.occur;
+      }
+    }
+
+    for (String femalekey : userFemaleMap.keySet()) {
+      node femaleNode = userFemaleMap.get(femalekey);
+      if (femaleNode.occur < flow) {
+        flow = femaleNode.occur;
+      }
+    }
 
     // Initial Titles
     displayUniqueName[0][0] = "Female Name";
@@ -112,29 +128,35 @@ public class HashMapFile {
     displayUniqueName[0][4] = "Frequency  ";
     displayUniqueName[0][5] = "%  ";
 
-    for (String mkey : userMaleMap.keySet()) {
-      // Create node for male
-      node maleNode = userMaleMap.get(mkey);
-      frequency = maleNode.occur;
-      if ((frequency == 5) && (i <= 5)){
-        displayUniqueName[i][0] = mkey;
-        displayUniqueName[i][1] = Integer.toString(frequency);
-        displayUniqueName[i][2] = String.format("%.7f%s", ((float)frequency / (float)totalBabies * 100), pre);
-        i++;
+    while (i <= 5) {
+      for (String mkey : userMaleMap.keySet()) {
+        // Create node for male
+        node maleNode = userMaleMap.get(mkey);
+        frequency = maleNode.occur;
+        if ((frequency == mlow) && (i <= 5)){
+          displayUniqueName[i][0] = mkey;
+          displayUniqueName[i][1] = Integer.toString(frequency);
+          displayUniqueName[i][2] = String.format("%.7f%s", ((float)frequency / (float)totalBabies * 100), pre);
+          i++;
+        }
       }
+      mlow++;
     }
 
-    for (String fkey : userFemaleMap.keySet()) {
-      // Create node for female
-      node femaleNode = userFemaleMap.get(fkey);
-      // Find the frequency of the male and female together
-      frequency = femaleNode.occur;
-      if ((frequency == 5) && (j <= 5)){
-        displayUniqueName[j][3] = fkey;
-        displayUniqueName[j][4] = Integer.toString(frequency);
-        displayUniqueName[j][5] = String.format("%.7f%s", ((float)frequency / (float)totalBabies * 100), pre);
-        j++;
+    while (j <= 5) {
+      for (String fkey : userFemaleMap.keySet()) {
+        // Create node for female
+        node femaleNode = userFemaleMap.get(fkey);
+        // Find the frequency of the male and female together
+        frequency = femaleNode.occur;
+        if ((frequency == flow) && (j <= 5)){
+          displayUniqueName[j][3] = fkey;
+          displayUniqueName[j][4] = Integer.toString(frequency);
+          displayUniqueName[j][5] = String.format("%.7f%s", ((float)frequency / (float)totalBabies * 100), pre);
+          j++;
+        }
       }
+      flow++;
     }
 
     for (String[] row : displayUniqueName) {
