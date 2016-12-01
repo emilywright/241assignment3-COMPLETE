@@ -101,17 +101,23 @@ public class ArrayListFile {
    */
 
   public static void UniqueName(ArrayList<node> userArray, int totalBabies) {
-    String[][] displayUniqueName = new String[6][3];
+    String[][] displayUniqueName = new String[6][6];
     Iterator<node> arrayIterator = userArray.iterator();
     ArrayList<node> femaleNames = new ArrayList<>();
     ArrayList<node> maleNames = new ArrayList<>();
     int frequency = 0;
     int precentage = 0;
     int i = 1;
+    int j = 1;
+
     // Initial Titles
-    displayUniqueName[0][0] = "Name";
-    displayUniqueName[0][1] = "Frequency";
+    displayUniqueName[0][0] = "Female Name";
+    displayUniqueName[0][1] = "Frequency ";
     displayUniqueName[0][2] = "%  ";
+    displayUniqueName[0][3] = "Male Name";
+    displayUniqueName[0][4] = "Frequency  ";
+    displayUniqueName[0][5] = "%  ";
+
 
     // Create two arraylists for male and female containing nodes
     while (arrayIterator.hasNext()) {
@@ -130,21 +136,29 @@ public class ArrayListFile {
     while (femaleIterator.hasNext()) {
       // Create node for female
       node femaleNode = femaleIterator.next();
-      while (maleIterator.hasNext()) {
-        // Create node for male
-        node maleNode = maleIterator.next();
-        // Find the frequency of the male and female together
-        frequency = femaleNode.occur + maleNode.occur;
-        // Make sure the two names are the same, the frequency is greater than 5, and for only 5 names
-        if ((femaleNode.name.equals(maleNode.name)) && (frequency >= 5) && (i <= 5)){
-          displayUniqueName[i][0] = femaleNode.name;
-          displayUniqueName[i][1] = Integer.toString(frequency);
-          displayUniqueName[i][2] = String.format("%.2f", ((float)frequency / (float)totalBabies * 100));
-          i++;
-        }
+      // Find the frequency of the male and female together
+      frequency = femaleNode.occur;
+      // Make sure the two names are the same, the frequency is greater than 5, and for only 5 names
+      if ((frequency == 5) && (i <= 5)){
+        displayUniqueName[i][0] = femaleNode.name;
+        displayUniqueName[i][1] = Integer.toString(frequency);
+        displayUniqueName[i][2] = String.format("%.2f", ((float)frequency / (float)totalBabies * 100));
+        i++;
       }
-      maleIterator = maleNames.iterator();
     }
+
+    while (maleIterator.hasNext()) {
+      // Create node for male
+      node maleNode = maleIterator.next();
+      frequency = maleNode.occur;
+      if ((frequency == 5) && (j <= 5)){
+        displayUniqueName[j][3] = maleNode.name;
+        displayUniqueName[j][4] = Integer.toString(frequency);
+        displayUniqueName[j][5] = String.format("%.2f", ((float)frequency / (float)totalBabies * 100));
+        j++;
+      }
+    }
+
 
     for (String[] row : displayUniqueName) {
        System.out.println(Arrays.toString(row));

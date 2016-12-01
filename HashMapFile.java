@@ -96,29 +96,42 @@ public class HashMapFile {
 
   public static void UniqueName(HashMap<String, node> userMaleMap, HashMap<String, node> userFemaleMap, int totalBabies) {
 
-    String[][] displayUniqueName = new String[6][3];
+    String[][] displayUniqueName = new String[6][6];
     int frequency = 0;
     int precentage = 0;
     int i = 1;
+    int j = 1;
+
     // Initial Titles
-    displayUniqueName[0][0] = "Name";
-    displayUniqueName[0][1] = "Frequency";
+    displayUniqueName[0][0] = "Female Name";
+    displayUniqueName[0][1] = "Frequency ";
     displayUniqueName[0][2] = "%  ";
+    displayUniqueName[0][3] = "Male Name";
+    displayUniqueName[0][4] = "Frequency  ";
+    displayUniqueName[0][5] = "%  ";
 
     for (String mkey : userMaleMap.keySet()) {
       // Create node for male
       node maleNode = userMaleMap.get(mkey);
-      for (String fkey : userFemaleMap.keySet()) {
-        // Create node for female
-        node femaleNode = userFemaleMap.get(fkey);
-        // Find the frequency of the male and female together
-        frequency = femaleNode.occur + maleNode.occur;
-        if ((fkey.equals(mkey)) && (frequency >= 5) && (i <= 5)){
-          displayUniqueName[i][0] = fkey;
-          displayUniqueName[i][1] = Integer.toString(frequency);
-          displayUniqueName[i][2] = String.format("%.2f", ((float)frequency / (float)totalBabies * 100));
-          i++;
-        }
+      frequency = maleNode.occur;
+      if ((frequency == 5) && (i <= 5)){
+        displayUniqueName[i][0] = mkey;
+        displayUniqueName[i][1] = Integer.toString(frequency);
+        displayUniqueName[i][2] = String.format("%.2f", ((float)frequency / (float)totalBabies * 100));
+        i++;
+      }
+    }
+
+    for (String fkey : userFemaleMap.keySet()) {
+      // Create node for female
+      node femaleNode = userFemaleMap.get(fkey);
+      // Find the frequency of the male and female together
+      frequency = femaleNode.occur;
+      if ((frequency == 5) && (j <= 5)){
+        displayUniqueName[j][3] = fkey;
+        displayUniqueName[j][4] = Integer.toString(frequency);
+        displayUniqueName[j][5] = String.format("%.2f", ((float)frequency / (float)totalBabies * 100));
+        j++;
       }
     }
 
