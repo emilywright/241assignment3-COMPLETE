@@ -184,23 +184,29 @@ public class handle {
     int rank = 0;
     int totalBabies = 0;
 
+    // Loops through file and for each name sorts info
     while (fileInfo.hasNext()) {
-
       String currLine = fileInfo.nextLine();
       String[] currLineSplit = currLine.split("\\,");
+      // If male
       if (currLineSplit[1].charAt(0) == 'M' || currLineSplit[1].charAt(0) == 'm') {
         maleCount += 1;
         rank = maleCount;
+        // Create node
         maleTotal = maleTotal + Integer.parseInt(currLineSplit[2]);
         totalBabies = totalBabies + Integer.parseInt(currLineSplit[2]);
         node currNode = new node(Integer.parseInt(currLineSplit[2]), currLineSplit[1].charAt(0), rank);
+        // Add node to male map as value and name as key
         userMaleMap.put(currLineSplit[0], currNode);
+      // else female
       } else {
         femaleCount += 1;
         rank = femaleCount;
+        // Create node
         femaleTotal = femaleTotal + Integer.parseInt(currLineSplit[2]);
         totalBabies = totalBabies + Integer.parseInt(currLineSplit[2]);
         node currNode = new node(Integer.parseInt(currLineSplit[2]), currLineSplit[1].charAt(0), rank);
+        // Add node to female map as value and name as key
         userFemaleMap.put(currLineSplit[0], currNode);
       }
     }
@@ -243,7 +249,7 @@ public class handle {
   public static void handleArrayList(Scanner fileInfo) {
 
     System.out.println("You chose: ArrayList");
-
+    // Array with baby names
     ArrayList<node> userArray = new ArrayList<>();
     int femaleTotal = 0;
     int maleTotal = 0;
@@ -267,7 +273,7 @@ public class handle {
         femaleTotal = femaleTotal + Integer.parseInt(currLineSplit[2]);
         totalBabies = totalBabies + Integer.parseInt(currLineSplit[2]);
       }
-
+      // Create nodes for userArray
       node currNode = new node(currLineSplit[0], Integer.parseInt(currLineSplit[2]), currLineSplit[1].charAt(0), rank);
       userArray.add(currNode);
     }

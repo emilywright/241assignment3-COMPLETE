@@ -14,16 +14,17 @@ public class HashMapFile {
     // If the male and/or female version of the name DNE
     String maleInfo = "NA    NA   ";
     String femaleInfo = "NA    NA";
+    // Find the female info
     if (userFemaleMap.containsKey(name)) {
       node femaleName = userFemaleMap.get(name);
       femaleInfo = femaleName.occur + "    " + femaleName.rank;
     }
-
+    // Find teh male info
     if (userMaleMap.containsKey(name)) {
       node maleName = userMaleMap.get(name);
       maleInfo = maleName.occur + "    " + maleName.rank;
     }
-
+    // If there is no info on male or female, the name DNE
     if (maleInfo.equals("NA    NA   ") && femaleInfo.equals("NA    NA")){
       System.out.println("Name not found.");
     } else {
@@ -42,7 +43,7 @@ public class HashMapFile {
    */
 
   public static void MostPopularName(HashMap<String, node> userMaleMap, HashMap<String, node> userFemaleMap, int maleTotal, int femaleTotal) {
-
+    // Array for printing final info
     String[][] displayPopNames = new String[11][6];
     int j = 1;
     int l = 1;
@@ -56,8 +57,9 @@ public class HashMapFile {
     displayPopNames[0][4] = "Frequency  ";
     displayPopNames[0][5] = "%  ";
 
-    // input male names
+    // Make sure finds 10 names
     while (l < 11) {
+      // input male names
       for (String key : userMaleMap.keySet()) {
         node maleNode = userMaleMap.get(key);
         if ((l <= 10) && (maleNode.rank == l)) {
@@ -69,6 +71,7 @@ public class HashMapFile {
       }
     }
 
+    // Make sure finds 10 names
     while (j < 11) {
       // input female names
       for (String key : userFemaleMap.keySet()) {
@@ -126,8 +129,9 @@ public class HashMapFile {
    */
 
   public static void UniqueName(HashMap<String, node> userMaleMap, HashMap<String, node> userFemaleMap, int totalBabies) {
-
+    // Array for displaying unique names
     String[][] displayUniqueName = new String[6][6];
+    // Intial values
     int frequency = 0;
     int precentage = 0;
     String pre = "%";
@@ -136,13 +140,14 @@ public class HashMapFile {
     int flow = Integer.MAX_VALUE;
     int mlow = Integer.MAX_VALUE;
 
+    // Find male lowest occurance
     for (String malekey : userMaleMap.keySet()) {
       node maleNode = userMaleMap.get(malekey);
       if (maleNode.occur < mlow) {
         mlow = maleNode.occur;
       }
     }
-
+    // Find female lowest occurance
     for (String femalekey : userFemaleMap.keySet()) {
       node femaleNode = userFemaleMap.get(femalekey);
       if (femaleNode.occur < flow) {
@@ -158,6 +163,7 @@ public class HashMapFile {
     displayUniqueName[0][4] = "Frequency  ";
     displayUniqueName[0][5] = "%  ";
 
+    // Make sure to find five unique names, increasing the mlow if needed
     while (i <= 5) {
       for (String mkey : userMaleMap.keySet()) {
         // Create node for male
@@ -173,11 +179,11 @@ public class HashMapFile {
       mlow++;
     }
 
+    // Make sure to find five unique names, increasing the flow if needed
     while (j <= 5) {
       for (String fkey : userFemaleMap.keySet()) {
         // Create node for female
         node femaleNode = userFemaleMap.get(fkey);
-        // Find the frequency of the male and female together
         frequency = femaleNode.occur;
         if ((frequency == flow) && (j <= 5)){
           displayUniqueName[j][3] = fkey;
@@ -189,6 +195,7 @@ public class HashMapFile {
       flow++;
     }
 
+    // Display the names
     for(int r=0; r<displayUniqueName.length; r++) {
        for(int c=0; c < displayUniqueName[r].length; c++){
          if((r == 0) && (c <= 5)){
@@ -236,15 +243,19 @@ public class HashMapFile {
     ArrayList<String> babyNames = new ArrayList<>();
     float precentage = 0;
     String pre = "%";
-
+    // Create arrays for male and female names
     ArrayList<String> babyFemaleNames = new ArrayList<String>(userFemaleMap.keySet());
     ArrayList<String> babyMaleNames = new ArrayList<String>(userMaleMap.keySet());
+    // Add male names
     babyNames.addAll(babyMaleNames);
+    // Add female names
     babyNames.addAll(babyFemaleNames);
 
+    // Sort the names
     String[] sortedNames = babyNames.toArray(new String[babyNames.size()]);
     Arrays.sort(sortedNames);
 
+    // Print each name and its info
     for (String name : sortedNames) {
         int count = 0;
         System.out.print("Name: " + name  + ", ");

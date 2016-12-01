@@ -161,11 +161,13 @@ public class ArrayListFile {
     while (arrayIterator.hasNext()) {
       // Grab the node
       node currNode = arrayIterator.next();
+      // Add the name to the male list and find the lowest occurance
       if (Character.toLowerCase(currNode.gender) == 'm'){
         if (currNode.occur < mlow) {
           mlow = currNode.occur;
         }
         maleNames.add(currNode);
+        // Add the name to the female list and find the lowest occurance
       } else {
         if (currNode.occur < flow) {
           flow = currNode.occur;
@@ -202,6 +204,7 @@ public class ArrayListFile {
         // Create node for male
         node maleNode = maleIterator.next();
         frequency = maleNode.occur;
+        // Find nodes with the lowest frequency but are still greater than 5
         if ((frequency == mlow) && (j <= 5)){
           displayUniqueName[j][3] = maleNode.name;
           displayUniqueName[j][4] = Integer.toString(frequency);
@@ -284,9 +287,12 @@ public class ArrayListFile {
             count = count + cNode.occur;
           }
         }
+        // Move iterator back to beginning of list
         nIterator = userArray.iterator();
+        // Find precentage
         precentage = (float)count / (float)totalBabies;
         Double p = precentage * 100.00;
+        // Print the count and precentage
         System.out.print("Count: " + count + ", ");
         System.out.printf("Percentage: %.2f%s \n", p, pre);
     }
