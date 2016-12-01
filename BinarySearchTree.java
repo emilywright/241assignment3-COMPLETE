@@ -15,6 +15,8 @@ public class BinarySearchTree {
 
   //Required variables for a BinarySearchTree
   public node root;
+
+  //Size is really just used to ensure it is the same size as our other Data Structures
   public int size;
 
   //Creation of BinarySearchTree
@@ -48,16 +50,6 @@ public class BinarySearchTree {
   //Lets us see the size of the BST
   public static int bstSize(BinarySearchTree tree) {
     return tree.size;
-  }
-
-  //Can search through the entire tree and print out each node.
-  public static void inorderTreeWalk(node treeRoot) {
-
-    if (treeRoot != null) {
-      inorderTreeWalk(treeRoot.left);
-      System.out.println(treeRoot.name + ", " + treeRoot.occur + ", " + treeRoot.gender);
-      inorderTreeWalk(treeRoot.right);
-    }
   }
 
   //Pass in the root to find the min of the tree.
@@ -104,6 +96,21 @@ public class BinarySearchTree {
     }
     return y;
   }
+
+  public static node treePredecessor(node Node) {
+
+        if (Node.left != null) {
+            return treeMax(Node.left);
+          }
+
+        node y = Node.parent;
+        node x = Node;
+        while (y != null && x == y.left) {
+            x = y;
+            y = y.parent;
+        }
+        return y;
+    }
 
   //Moves nodes u into node z's position
   public static void transplant(BinarySearchTree tree, node u, node v) {
@@ -200,16 +207,25 @@ public class BinarySearchTree {
 
     String[] sortedArray = printList.toArray(new String[printList.size()]);
     Arrays.sort(sortedArray);
-    int totals = 0;
+
     for (int i = 0; i < sortedArray.length; i++) {
       node currName = searchTreeName(root, sortedArray[i]);
-      totals += currName.occur;
-    }
-    for (int i = 0; i < sortedArray.length; i++) {
-      node currName = searchTreeName(root, sortedArray[i]);
-      System.out.println(currName.occur + " / " + totals);
       System.out.print("Name: " + sortedArray[i] + ", Count: " + currName.occur + ",");
-      System.out.printf("Percentage: %.2f \n", (float)(currName.occur/ totals) * 100.00);
+      System.out.printf(" Percentage: %.2f \n", ((float)currName.occur/ (float)total) * 100.00);
     }
   }
-}
+
+  public static node[] MostPopularName(node root) {
+
+	  Stack<node> nodeStack = new Stack<node>();
+    node[] returnArr;
+    returnArr = new node[5];
+	  returnArr[0] = treeMax(root);
+    returnArr[1] = treePredecessor(returnArr[0]);
+    returnArr[2] = treePredecessor(returnArr[1]);
+    returnArr[3] = treePredecessor(returnArr[2]);
+    returnArr[4] = treePredecessor(returnArr[3]);
+
+    return returnArr;
+  } // End MostPopularName
+} //End BST

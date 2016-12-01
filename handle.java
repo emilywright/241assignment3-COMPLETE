@@ -37,6 +37,8 @@ public class handle {
     BinarySearchTree maleTree = new BinarySearchTree();
     BinarySearchTree femaleTree = new BinarySearchTree();
     BinarySearchTree mainTree = new BinarySearchTree();
+    int maleTotal = 0;
+    int femaleTotal = 0;
     int maleCount = 0;
     int femaleCount = 0;
 
@@ -46,11 +48,13 @@ public class handle {
       String[] currLineSplit = currLine.split("\\,");
       if (currLineSplit[1].charAt(0) == 'M' || currLineSplit[1].charAt(0) == 'm') {
 
+        maleTotal += Integer.parseInt(currLineSplit[2]);
         maleCount += 1;
         node currNode = new node(currLineSplit[0], Integer.parseInt(currLineSplit[2]), currLineSplit[1].charAt(0), maleCount);
         BinarySearchTree.treeInsert(maleTree, currNode);
       } else {
 
+        femaleTotal += Integer.parseInt(currLineSplit[2]);
         femaleCount += 1;
         node currNode = new node(currLineSplit[0], Integer.parseInt(currLineSplit[2]), currLineSplit[1].charAt(0), femaleCount);
         BinarySearchTree.treeInsert(femaleTree, currNode);
@@ -69,36 +73,74 @@ public class handle {
       System.out.println("Please enter a name to search for: ");
       Scanner nameScan = new Scanner(System.in);
       String name = nameScan.next();
-  	  node maleNode = BinarySearchTree.searchTreeName(maleTree.root, name);
-      node femaleNode = BinarySearchTree.searchTreeName(femaleTree.root, name);
+      try {
 
-      //These next few lines just ensure formatting doesn't print weird.
-  	  System.out.println("Year      " + "Male      " + "Rank-Male " + "Female    " + "Rank-Female");
-      System.out.print("2014      ");
-      System.out.print(maleNode.occur);
-      for (int i = 0; i < (10 - String.valueOf(maleNode.occur).length()); i++) {
-        System.out.print(" ");
+    	  node maleNode = BinarySearchTree.searchTreeName(maleTree.root, name);
+        node femaleNode = BinarySearchTree.searchTreeName(femaleTree.root, name);
+
+        int nullCheck = maleNode.occur; //The dumbest way to catch a NullPointer before anything happens.
+        //These next few lines just ensure formatting doesn't print weird.
+        System.out.println("Year      " + "Male      " + "Rank-Male " + "Female    " + "Rank-Female");
+        System.out.print("2014      ");
+        System.out.print(maleNode.occur);
+        for (int i = 0; i < (10 - String.valueOf(maleNode.occur).length()); i++) {
+          System.out.print(" ");
+        }
+        System.out.print(maleNode.rank);
+        for (int i = 0; i < (10 - String.valueOf(maleNode.rank).length()); i++) {
+          System.out.print(" ");
+        }
+        System.out.print(femaleNode.occur);
+        for (int i = 0; i < (10 - String.valueOf(femaleNode.occur).length()); i++) {
+          System.out.print(" ");
+        }
+        System.out.print(femaleNode.rank);
+
+      } catch (NullPointerException e) {
+
+        System.out.println("Name not found!");
       }
-      System.out.print(maleNode.rank);
-      for (int i = 0; i < (10 - String.valueOf(maleNode.rank).length()); i++) {
-        System.out.print(" ");
-      }
-      System.out.print(femaleNode.occur);
-      for (int i = 0; i < (10 - String.valueOf(femaleNode.occur).length()); i++) {
-        System.out.print(" ");
-      }
-      System.out.print(femaleNode.rank);
 
     } else if (funcChoice == 2) {
 
       System.out.println("You chose MostPopularName");
+      node[] femArr = BinarySearchTree.MostPopularName(femaleTree.root);
+      node[] malArr = BinarySearchTree.MostPopularName(maleTree.root);
+      System.out.println("Female name:  " + "Frequency     " + "Percentage    " + "Male name:    " + "Frequency     " + "Percentage    ");
+      for (int i = 0; i < femArr.length; i++) {
+        //Female names from here down
+        System.out.print("\n" + femArr[i].name);
+        for (int o = 0; o < 14 - femArr[i].name.length(); o++){
+          System.out.print(" ");
+        }
+        System.out.print(femArr[i].occur);
+        for (int o = 0; o < 14 - String.valueOf(femArr[i].occur).length(); o++){
+          System.out.print(" ");
+        }
+        System.out.printf("%.2f", (float)femArr[i].occur / (float)femaleTotal * 100);
+        for (int o = 0; o < 10; o++){
+          System.out.print(" ");
+        }
+
+        //Male names from here down
+        System.out.print(malArr[i].name);
+        for (int o = 0; o < 14 - malArr[i].name.length(); o++){
+          System.out.print(" ");
+        }
+        System.out.print(malArr[i].occur);
+        for (int o = 0; o < 14 - String.valueOf(malArr[i].occur).length(); o++){
+          System.out.print(" ");
+        }
+        System.out.printf("%.2f", (float)malArr[i].occur / (float)maleTotal * 100);
+      }
+
     } else if (funcChoice == 3) {
 
       System.out.println("You chose UniqueName");
     } else if (funcChoice == 4) {
 
       System.out.println("You chose DisplayName");
-      BinarySearchTree.DisplayName(mainTree.root, maleCount + femaleCount);
+      BinarySearchTree.DisplayName(mainTree.root, maleTotal + femaleTotal);
   } else {
 
     System.out.println("Please choose a valid option.");
