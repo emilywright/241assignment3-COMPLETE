@@ -42,6 +42,11 @@ public class handle {
     int maleCount = 0;
     int femaleCount = 0;
 
+    //This while loads the BST with all necessary nodes..
+    //It does this by using the comma as a delimeter and splits the info into an array.
+    //It then creates three trees. A female, a male and a mixed. This is done to
+    //Simplify later functions that require female and male into be pulled, as it should reduce run time a bit
+    //But also simplifies our logic.
     while (fileInfo.hasNext()) {
 
       String currLine = fileInfo.nextLine();
@@ -63,10 +68,13 @@ public class handle {
       node mainNode = new node(currLineSplit[0], Integer.parseInt(currLineSplit[2]), currLineSplit[1].charAt(0));
       BinarySearchTree.treeInsert(mainTree, mainNode);
 
-    } // It's best not to inorder walk after inserting, due to a stack overflow. It'll be okay with smaller text files.
+    }
+
     System.out.println("\nWhich function did you want to use? 1: SearchName, 2: MostPopularName, 3: UniqueName, 4: DisplayName");
     Scanner options = new Scanner(System.in);
     int funcChoice = options.nextInt();
+
+    //Option one is SearchName, which is described in BinarySearchTree.java
     if (funcChoice == 1) {
 
       System.out.println("You chose SearchName");
@@ -79,6 +87,7 @@ public class handle {
         node femaleNode = BinarySearchTree.searchTreeName(femaleTree.root, name);
 
         int nullCheck = maleNode.occur; //The dumbest way to catch a NullPointer before anything happens.
+
         //These next few lines just ensure formatting doesn't print weird.
         System.out.println("Year      " + "Male      " + "Rank-Male " + "Female    " + "Rank-Female");
         System.out.print("2014      ");
@@ -101,12 +110,17 @@ public class handle {
         System.out.println("Name not found!");
       }
 
+      //Option two is MostPopularName, described in BinarySearchTree.java
     } else if (funcChoice == 2) {
 
-      System.out.println("You chose MostPopularName");
+      System.out.println("You chose MostPopularName");// It's best not to inorder walk after inserting, due to a stack overflow. It'll be okay with smaller text files.
+
+      //Our function returns the top occurences in an array of size 5. So we init two seperate arrays since we need female and male info.
       node[] femArr = BinarySearchTree.MostPopularName(femaleTree.root);
       node[] malArr = BinarySearchTree.MostPopularName(maleTree.root);
-      System.out.println("Female name:  " + "Frequency     " + "Percentage    " + "Male name:    " + "Frequency     " + "Percentage    ");
+      System.out.println("Female name:  " + "Frequency:    " + "Percentage:   " + "Male name:    " + "Frequency:    " + "Percentage:   ");
+
+      //Again all for statements are just used to ensure formatting is pretty, it's less confusing than it looks.
       for (int i = 0; i < femArr.length; i++) {
         //Female names from here down
         System.out.print("\n" + femArr[i].name);
@@ -117,8 +131,9 @@ public class handle {
         for (int o = 0; o < 14 - String.valueOf(femArr[i].occur).length(); o++){
           System.out.print(" ");
         }
-        System.out.printf("%.2f", (float)femArr[i].occur / (float)femaleTotal * 100);
-        for (int o = 0; o < 10; o++){
+        System.out.printf("%.7f", (float)femArr[i].occur / (float)femaleTotal * 100);
+        System.out.print("%");
+        for (int o = 0; o < 4; o++){
           System.out.print(" ");
         }
 
@@ -131,12 +146,19 @@ public class handle {
         for (int o = 0; o < 14 - String.valueOf(malArr[i].occur).length(); o++){
           System.out.print(" ");
         }
-        System.out.printf("%.2f", (float)malArr[i].occur / (float)maleTotal * 100);
+        System.out.printf("%.7f", (float)malArr[i].occur / (float)maleTotal * 100);
+        System.out.print("%");
       }
 
+      //UniqueName is option three, which is described in BinarySearchTree.java
     } else if (funcChoice == 3) {
-
+// It's best not to inorder walk after inserting, due to a stack overflow. It'll be okay with smaller text files.
       System.out.println("You chose UniqueName");
+      System.out.println("Unique male names: ");
+      BinarySearchTree.UniqueName(maleTree.root, maleTotal + femaleTotal);
+      System.out.println("Unique female names: ");
+      BinarySearchTree.UniqueName(femaleTree.root, maleTotal + femaleTotal);
+
     } else if (funcChoice == 4) {
 
       System.out.println("You chose DisplayName");
@@ -158,7 +180,7 @@ public class handle {
     int femaleTotal = 0;
     int maleTotal = 0;
     int maleCount = 0;
-    int femaleCount = 0;
+    int femaleCount = 0;// It's best not to inorder walk after inserting, due to a stack overflow. It'll be okay with smaller text files.
     int rank = 0;
     int totalBabies = 0;
 

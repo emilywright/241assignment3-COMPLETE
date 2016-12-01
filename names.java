@@ -6,22 +6,10 @@ Description: This is the driver file for the three data structures/functions.
              that data structure to display data. All the handle functions are contained
              in handle.java.
 
-Issues: The scanner needs to be reset, otherwise you can only pick one data structure and it won't be able to load data with the others.
-        This can be fixed multiple ways, by loading the data structures before we do anything (this would take A LONG time) or by
-        creating a scanner when the option is chosen, I'm going to talk to Moushomi about it Monday.
-
-        Just kidding I fixed it by putting it in the loop too.
-
 */
 
 import java.util.Scanner;
 import java.io.*;
-/*
-
-Author: Christian Brintnall
-Description: The main driver file. Compile this one to test Code
-
-*/
 
 public class names {
 

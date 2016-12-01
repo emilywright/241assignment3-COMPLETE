@@ -8,8 +8,6 @@ Description: A Binary Search Tree object that can perform operations upon the tr
 */
 
 import java.util.*;
-import java.text.Collator;
-import java.util.Locale;
 
 public class BinarySearchTree {
 
@@ -147,11 +145,13 @@ public class BinarySearchTree {
     }
   }
 
+  //Searches for a name in the tree, iteratively, when it's found it displays info about the females and the males with that name.
   public static node searchTreeName(node root, String key) {
 	  if (root == null) {
 		  return null;
 	  }
 
+    //We use a stack to search iteratively
 	  Stack<node> nodeStack = new Stack<node>();
 	  node currRoot = root;
 
@@ -178,6 +178,8 @@ public class BinarySearchTree {
   return null;
   }
 
+  //Takes every node, stores it in the stack, pops them out and stores them into an array.
+  //Once that array is full, and the stack is empty, we sort the array alphabetically and print it out.
   public static void DisplayName(node root, int total) {
 
     ArrayList<String> printList = new ArrayList<String>();
@@ -211,10 +213,14 @@ public class BinarySearchTree {
     for (int i = 0; i < sortedArray.length; i++) {
       node currName = searchTreeName(root, sortedArray[i]);
       System.out.print("Name: " + sortedArray[i] + ", Count: " + currName.occur + ",");
-      System.out.printf(" Percentage: %.2f \n", ((float)currName.occur/ (float)total) * 100.00);
+      System.out.printf(" Percentage: %.7f", ((float)currName.occur/ (float)total) * 100.00);
+      System.out.print("%\n");
     }
   }
 
+  //Returns an array with the necessary info about the names with the highest occurences.
+  //This is done by finding the max occurence in the tree, and finding the Predecessors on
+  //Each following node, which will give the top 5 occurences.
   public static node[] MostPopularName(node root) {
 
 	  Stack<node> nodeStack = new Stack<node>();
@@ -228,4 +234,54 @@ public class BinarySearchTree {
 
     return returnArr;
   } // End MostPopularName
+
+  //Finds the minimum amount of occurences in our tree, once that is done it finds all the unique names
+  //That have that amount of occurences and prints them out.
+  public static void UniqueName(node root, int total) {
+
+	  Stack<node> nodeStack = new Stack<node>();
+	  node currRoot = root;
+    node minOccur = treeMin(root);
+    LinkedList<node> printList = new LinkedList<node>();
+
+	  while (currRoot != null) {
+
+		  nodeStack.push(currRoot);
+		  currRoot = currRoot.left;
+	  }
+
+	  while (nodeStack.size() > 0) {
+
+		  node visitNode = nodeStack.pop();
+      if (visitNode.occur == minOccur.occur) {
+          printList.add(visitNode);
+          if (printList.size() >= 5) {
+            break;
+          }
+      }
+		  if (visitNode.right != null) {
+
+			  visitNode = visitNode.right;
+			  while (visitNode != null) {
+
+				  nodeStack.push(visitNode);
+				  visitNode = visitNode.left;
+			  }
+		  }
+	  }
+
+    System.out.println("Name:     " + "Frequency:" + " Percentage:");
+    for (int i = 0; i < printList.size(); i++) {
+      System.out.print(printList.get(i).name);
+      for (int z = 0; z < 10 -printList.get(i).name.length(); z++)  {
+        System.out.print(" ");
+      }
+      System.out.print(printList.get(i).occur);
+      for (int y = 0; y < 10 - String.valueOf(printList.get(i).occur).length(); y++) {
+        System.out.print(" ");
+      }
+      System.out.printf(" %.7f", ((float)printList.get(i).occur/ (float)total) * 100.00);
+      System.out.print("%\n");
+    }
+  } // End UniqueName
 } //End BST
